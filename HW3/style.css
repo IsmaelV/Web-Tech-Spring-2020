@@ -14,7 +14,7 @@ a{
 	font-size: 100px;
 }
 .navigation_text{
-	color: black;
+	color: gray;
 }
 .italicize_text{
 	font-style: italic;
@@ -26,10 +26,22 @@ a{
 	text-align: center;
 }
 
+.black_text{
+	color: black;
+}
+
+.subsection_text{
+	font-size: 25px;
+	margin-left: 95px;
+}
+
 .title_container{
 	float: center;
 
-	margin: 50px;
+	margin-right: 125px;
+	margin-left: 125px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 	padding: 10px;
 
 	border: 2px solid black;
@@ -40,6 +52,20 @@ a{
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.footer_container{
+	margin-left: 200px;
+	margin-right: 200px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+
+	text-align: center;
+}
+
+.small_img{
+	height: 25px;
+	margin: 10px;
 }
 
 .hw3_img{
