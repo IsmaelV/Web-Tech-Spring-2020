@@ -70,37 +70,61 @@
 						html_text += "</th>";
 					}
 					html_text += "</thead>";
-					// console.log("Header_order")
-					// console.log(header_order)
 
 					// Create Body for table
 					html_text += "<tbody>";
 					entries = root.Table.Row;
+					if(!root.Table.hasOwnProperty("Row") || root.Table.Row.length == 0){
+						return "No Rows";
+					}
+					var orig_html = html_text;
+					var line_check = 0;
 					for(j = 0; j < entries.length; j++){
 						html_text += "<tr>";  								// Start row
 						for(k = 0; k < header_order.length; k++){
 							html_text += "<td>";  							// Start column
 							
-							if(header_order[k] == "City / Country"){  		// Dotted list
+							if(k == 2){  									// Dotted list
 								html_text += "<ul>"
 								cc_info = entries[j]["Hubs"]["Hub"];
 								for(i = 0; i < cc_info.length; i++){
 									html_text += "<li>";
+									if(i == 0){
+										html_text += "<b>";
+									}
+									if(cc_info[i].trim() != ""){
+										line_check += 1;
+									}
 									html_text += cc_info[i];
+									if(i == 0){
+										html_text += "</b>";
+									}
 									html_text += "</li>";
 								}
 								html_text += "</ul>";
 							}
-							else if(header_order[k] == "Height (ft)"){  	// Height
+							else if(k == 3){  								// Height
+								if(entries[j]["Height"].trim() != ""){
+									line_check += 1;
+								}
 								html_text += entries[j]["Height"];
 							}
-							else if(header_order[k] == "Wiki Page"){  		// Wiki page given
+							else if(k == 4){  								// Wiki page given
+								if(entries[j]["HomePage"].trim() != ""){
+									line_check += 1;
+								}
 								html_text += entries[j]["HomePage"];
 							}
-							else if(header_order[k] == "Image"){  			// Image
+							else if(k == 5){  								// Image
+								if(entries[j]["Logo"].trim() != ""){
+									line_check += 1;
+								}
 								html_text += '<img src="' + entries[j]["Logo"] + '" style="width:130px;height:130px;">';
 							}
 							else{  											// Anything else
+								if(entries[j][header_order[k]]){
+									line_check += 1;
+								}
 								html_text += entries[j][header_order[k]];
 							}
 
@@ -109,17 +133,35 @@
 						html_text += "</tr>";  								// End row
 					}
 
+					if(orig_html == html_text){
+						return "No Rows";
+					}
+
 					html_text += "</bo";  // Closing Body tag is separated because of freevar interpreter
 					html_text += "dy>";
 					html_text += "</html>";
+					return html_text;
+				}
 
+				try{
+					jsonObj = loadJSON(URL);
+				}
+				catch(Error){  								// Check for error loading JSON file
+					alert("Error: problem loading your JSON file. Make sure you spelled your file correctly (or that it exists).")
+					return -1;
 				}
 
 				jsonObj = loadJSON(URL);
 				jsonObj.onload = generateHTML(jsonObj);
-				hWin = window.open("", "Assignment4", "height=800,width=1200");
-				hWin.document.write(html_text);
-				hWin.document.close();
+				
+				if(jsonObj.onload == "No Rows"){  			// Check error of no row
+					alert("Error: No rows present");
+				}
+				else{  										// All went with no errors
+					hWin = window.open("", "Assignment4", "height=800,width=1200");
+					hWin.document.write(html_text);
+					hWin.document.close();
+				}
 			}
 
 		</script>
