@@ -5,13 +5,42 @@
 	<head>
 		<title>ivillega | HW 4</title>
 
-		<link href="style.css" rel="stylesheet">
+		<style>
+			.title_text{
+				font-size: 60px;
+			}
+			.navigation_text{
+				color: gray;
+			}
+			.italicize_text{
+				font-style: italic;
+			}
+			.bold_text{
+				font-weight: bold;
+			}
+			.center_text{
+				text-align: center;
+			}
+
+			.title_container{
+				margin: 15px;
+				font-size: 20px;
+			}
+			.submission_container{
+				margin: 15px;
+			}
+			.button_container{
+				margin: 15px;
+			}
+		</style>
 
 		<script type="text/javascript">
 
+			// All operations under one function for efficiency
 			function viewJSON(testing){
 				var URL = testing.URL.value;
 
+				// loadJSON using example from class
 				var jsonDoc;
 				function loadJSON(given) {
 					var xmlhttp = new XMLHttpRequest();
@@ -21,29 +50,74 @@
 					return jsonDoc;
 				}
 
+				// Gets JSON information and outputs to HTML
 				function generateHTML(jObj){
-					console.log(jObj);
+					// console.log(jObj);
 					root = jObj.Mainline;
-					console.log(root);
-					html_text = "<html><head><title>JSON Parse Result</title></head><body>";
+					// console.log(root);
+
+					html_text = "<html><head><title>Largest Manufacturers by Production (2017)</title></head><body>";
 					html_text += "<table border='2'>";
+
+					// Create Header for table
 					html_text += "<thead>";
 					header = root.Table.Header;
+					var header_order = []  // Keep the order consistent
 					for(i = 0; i < header.Data.length; i++){
 						html_text += "<th>";
 						html_text += header.Data[i];
+						header_order.push(header.Data[i])
 						html_text += "</th>";
 					}
 					html_text += "</thead>";
+					// console.log("Header_order")
+					// console.log(header_order)
 
+					// Create Body for table
 					html_text += "<tbody>";
-					html_text += "<tr>";
+					entries = root.Table.Row;
+					for(j = 0; j < entries.length; j++){
+						html_text += "<tr>";  								// Start row
+						for(k = 0; k < header_order.length; k++){
+							html_text += "<td>";  							// Start column
+							
+							if(header_order[k] == "City / Country"){  		// Dotted list
+								html_text += "<ul>"
+								cc_info = entries[j]["Hubs"]["Hub"];
+								for(i = 0; i < cc_info.length; i++){
+									html_text += "<li>";
+									html_text += cc_info[i];
+									html_text += "</li>";
+								}
+								html_text += "</ul>";
+							}
+							else if(header_order[k] == "Height (ft)"){  	// Height
+								html_text += entries[j]["Height"];
+							}
+							else if(header_order[k] == "Wiki Page"){  		// Wiki page given
+								html_text += entries[j]["HomePage"];
+							}
+							else if(header_order[k] == "Image"){  			// Image
+								html_text += '<img src="' + entries[j]["Logo"] + '" style="width:130px;height:130px;">';
+							}
+							else{  											// Anything else
+								html_text += entries[j][header_order[k]];
+							}
+
+							html_text += "</td>";  							// End column
+						}
+						html_text += "</tr>";  								// End row
+					}
+
+					html_text += "</bo";  // Closing Body tag is separated because of freevar interpreter
+					html_text += "dy>";
+					html_text += "</html>";
 
 				}
 
 				jsonObj = loadJSON(URL);
 				jsonObj.onload = generateHTML(jsonObj);
-				hWin = window.open("", "Assignment4", "height=800,width=600");
+				hWin = window.open("", "Assignment4", "height=800,width=1200");
 				hWin.document.write(html_text);
 				hWin.document.close();
 			}
