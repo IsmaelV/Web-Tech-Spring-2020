@@ -6,17 +6,62 @@
 		<title>ivillega | HW 4</title>
 
 		<link href="style.css" rel="stylesheet">
+
+		<script type="text/javascript">
+
+			function viewJSON(testing){
+				var URL = testing.URL.value;
+
+				var jsonDoc;
+				function loadJSON(given) {
+					var xmlhttp = new XMLHttpRequest();
+					xmlhttp.open("GET", given, false);
+					xmlhttp.send();
+					jsonDoc = JSON.parse(xmlhttp.responseText);
+					return jsonDoc;
+				}
+
+				function generateHTML(jObj){
+					console.log(jObj);
+					root = jObj.Mainline;
+					console.log(root);
+					html_text = "<html><head><title>JSON Parse Result</title></head><body>";
+					html_text += "<table border='2'>";
+					html_text += "<thead>";
+					header = root.Table.Header;
+					for(i = 0; i < header.Data.length; i++){
+						html_text += "<th>";
+						html_text += header.Data[i];
+						html_text += "</th>";
+					}
+					html_text += "</thead>";
+
+					html_text += "<tbody>";
+					html_text += "<tr>";
+
+				}
+
+				jsonObj = loadJSON(URL);
+				jsonObj.onload = generateHTML(jsonObj);
+				hWin = window.open("", "Assignment4", "height=800,width=600");
+				hWin.document.write(html_text);
+				hWin.document.close();
+			}
+
+		</script>
+
 	</head>
 
 	<body>
 		<div class="bold_text center_text title_container">
 			Enter URL for list of tallest buildings JSON File
 		</div>
+		<form name="myform" method="POST" id="location">
 		<div class="center_text submission_container">
-			<input rows="1" type="text" id="building_json" placeholder="JSON file for buildings">
+			<input rows="1" type="text" name="URL" id="building_json" placeholder="JSON file for buildings">
 		</div>
 		<div class="center_text button_container">
-			<button id="submit">Submit Query</button>
+			<input type="button" name="submit_json" id="submit" value="Submit Query" onClick="viewJSON(this.form)"/>
 		</div>
 	</body>
 
