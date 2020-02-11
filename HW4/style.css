@@ -1,0 +1,26 @@
+.title_text{
+	font-size: 60px;
+}
+.navigation_text{
+	color: gray;
+}
+.italicize_text{
+	font-style: italic;
+}
+.bold_text{
+	font-weight: bold;
+}
+.center_text{
+	text-align: center;
+}
+
+.title_container{
+	margin: 15px;
+	font-size: 20px;
+}
+.submission_container{
+	margin: 15px;
+}
+.button_container{
+	margin: 15px;
+}
