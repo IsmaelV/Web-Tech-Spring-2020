@@ -43,18 +43,16 @@
 				// loadJSON using example from class
 				var jsonDoc;
 				function loadJSON(given) {
-					var xmlhttp = new XMLHttpRequest();
-					xmlhttp.open("GET", given, false);
-					xmlhttp.send();
-					jsonDoc = JSON.parse(xmlhttp.responseText);
+					var xmlreq = new XMLHttpRequest();
+					xmlreq.open("GET", given, false);
+					xmlreq.send();
+					jsonDoc = JSON.parse(xmlreq.responseText);
 					return jsonDoc;
 				}
 
 				// Gets JSON information and outputs to HTML
 				function generateHTML(jObj){
-					// console.log(jObj);
 					root = jObj.Mainline;
-					// console.log(root);
 
 					html_text = "<html><head><title>Largest Manufacturers by Production (2017)</title></head><body>";
 					html_text += "<table border='2'>";
@@ -74,63 +72,76 @@
 					// Create Body for table
 					html_text += "<tbody>";
 					entries = root.Table.Row;
-					if(!root.Table.hasOwnProperty("Row") || root.Table.Row.length == 0){
+					if(!root.Table.hasOwnProperty("Row") || root.Table.Row.length == 0){  // Check if Row exists or if it has content
 						return "No Rows";
 					}
+
 					var orig_html = html_text;
-					var line_check = 0;
-					for(j = 0; j < entries.length; j++){
-						html_text += "<tr>";  								// Start row
-						for(k = 0; k < header_order.length; k++){
-							html_text += "<td>";  							// Start column
+
+					for(j = 0; j < entries.length; j++){  					// Start Row
+
+						all_entries = "";
+						line_check = 0;
+
+						for(k = 0; k < header_order.length; k++){  			// Start Column
+							new_entries = "<td>";
 							
 							if(k == 2){  									// Dotted list
-								html_text += "<ul>"
+								new_entries += "<ul>"
 								cc_info = entries[j]["Hubs"]["Hub"];
 								for(i = 0; i < cc_info.length; i++){
-									html_text += "<li>";
+									new_entries += "<li>";
 									if(i == 0){
-										html_text += "<b>";
+										new_entries += "<b>";
 									}
 									if(cc_info[i].trim() != ""){
 										line_check += 1;
 									}
-									html_text += cc_info[i];
+									new_entries += cc_info[i];
 									if(i == 0){
-										html_text += "</b>";
+										new_entries += "</b>";
 									}
-									html_text += "</li>";
+									new_entries += "</li>";
 								}
-								html_text += "</ul>";
+								new_entries += "</ul>";
 							}
 							else if(k == 3){  								// Height
 								if(entries[j]["Height"].trim() != ""){
 									line_check += 1;
 								}
-								html_text += entries[j]["Height"];
+								new_entries += entries[j]["Height"];
 							}
 							else if(k == 4){  								// Wiki page given
 								if(entries[j]["HomePage"].trim() != ""){
 									line_check += 1;
 								}
-								html_text += entries[j]["HomePage"];
+								new_entries += entries[j]["HomePage"];
 							}
 							else if(k == 5){  								// Image
 								if(entries[j]["Logo"].trim() != ""){
 									line_check += 1;
 								}
-								html_text += '<img src="' + entries[j]["Logo"] + '" style="width:130px;height:130px;">';
+								new_entries += '<img src="' + entries[j]["Logo"] + '" style="width:130px;height:130px;">';
 							}
 							else{  											// Anything else
-								if(entries[j][header_order[k]]){
+								if(entries[j][header_order[k]].trim() != ""){
 									line_check += 1;
 								}
-								html_text += entries[j][header_order[k]];
+								new_entries += entries[j][header_order[k]];
 							}
 
-							html_text += "</td>";  							// End column
+							new_entries += "</td>";  						// End column
+
+							if(line_check > 0){  							// If something exists in row, accept
+								all_entries += new_entries;
+							}
 						}
-						html_text += "</tr>";  								// End row
+
+						if(all_entries != ""){  		// End Row && check if row exists with data
+							html_text += "<tr>";
+							html_text += all_entries;
+							html_text += "</tr>";
+						}
 					}
 
 					if(orig_html == html_text){
