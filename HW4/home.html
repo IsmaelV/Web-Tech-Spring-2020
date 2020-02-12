@@ -60,11 +60,9 @@
 					// Create Header for table
 					html_text += "<thead>";
 					header = root.Table.Header;
-					var header_order = []  // Keep the order consistent
 					for(i = 0; i < header.Data.length; i++){
 						html_text += "<th>";
 						html_text += header.Data[i];
-						header_order.push(header.Data[i])
 						html_text += "</th>";
 					}
 					html_text += "</thead>";
@@ -76,70 +74,69 @@
 						return "No Rows";
 					}
 
-					var orig_html = html_text;
+					var orig_html = html_text;  		// Used to check if rows are empty or not
 
-					for(j = 0; j < entries.length; j++){  					// Start Row
-
-						all_entries = "";
+					for(j = 0; j < entries.length; j++){  				// Start Row
 						line_check = 0;
 
-						for(k = 0; k < header_order.length; k++){  			// Start Column
-							new_entries = "<td>";
-							
-							if(k == 2){  									// Dotted list
-								new_entries += "<ul>"
-								cc_info = entries[j]["Hubs"]["Hub"];
-								for(i = 0; i < cc_info.length; i++){
-									new_entries += "<li>";
-									if(i == 0){
-										new_entries += "<b>";
-									}
-									if(cc_info[i].trim() != ""){
-										line_check += 1;
-									}
-									new_entries += cc_info[i];
-									if(i == 0){
-										new_entries += "</b>";
-									}
-									new_entries += "</li>";
-								}
-								new_entries += "</ul>";
-							}
-							else if(k == 3){  								// Height
-								if(entries[j]["Height"].trim() != ""){
-									line_check += 1;
-								}
-								new_entries += entries[j]["Height"];
-							}
-							else if(k == 4){  								// Wiki page given
-								if(entries[j]["HomePage"].trim() != ""){
-									line_check += 1;
-								}
-								new_entries += entries[j]["HomePage"];
-							}
-							else if(k == 5){  								// Image
-								if(entries[j]["Logo"].trim() != ""){
-									line_check += 1;
-								}
-								new_entries += '<img src="' + entries[j]["Logo"] + '" style="width:130px;height:130px;">';
-							}
-							else{  											// Anything else
-								if(entries[j][header_order[k]].trim() != ""){
-									line_check += 1;
-								}
-								new_entries += entries[j][header_order[k]];
-							}
-
-							new_entries += "</td>";  						// End column
-
-							if(line_check > 0){  							// If something exists in row, accept
-								all_entries += new_entries;
-							}
+						new_entries = "<td>";  							// Rank
+						if(entries[j]["Rank"].trim() != ""){
+							line_check += 1;
 						}
+						new_entries += entries[j]["Rank"];
+						new_entries += "</td>";
 
-						if(all_entries != ""){  		// End Row && check if row exists with data
+						new_entries += "<td>";  						// Name
+						if(entries[j]["Name"].trim() != ""){
+							line_check += 1;
+						}
+						new_entries += entries[j]["Name"];
+						new_entries += "</td>";
+
+						new_entries += "<td>";  						// Hubs
+						new_entries += "<ul>"
+						cc_info = entries[j]["Hubs"]["Hub"];
+						for(i = 0; i < cc_info.length; i++){
+							new_entries += "<li>";
+							if(i == 0){
+								new_entries += "<b>";
+							}
+							if(cc_info[i].trim() != ""){
+								line_check += 1;
+							}
+							new_entries += cc_info[i];
+							if(i == 0){
+								new_entries += "</b>";
+							}
+							new_entries += "</li>";
+						}
+						new_entries += "</ul>";
+						new_entries += "</td>";
+
+						new_entries += "<td>";  						// Height
+						if(entries[j]["Height"].trim() != ""){
+							line_check += 1;
+						}
+						new_entries += entries[j]["Height"];
+						new_entries += "</td>";
+
+						new_entries += "<td>";  						// HomePage
+						if(entries[j]["HomePage"].trim() != ""){
+							line_check += 1;
+						}
+						new_entries += entries[j]["HomePage"];
+						new_entries += "</td>";
+
+						new_entries += "<td>";  						// Logo
+						if(entries[j]["Logo"].trim() != ""){
+							line_check += 1;
+						}
+						new_entries += '<img src="' + entries[j]["Logo"] + '" style="width:130px;height:130px;">';
+						new_entries += "</td>";
+
+						if(line_check > 0){  		// End Row && check if row exists with data
 							html_text += "<tr>";
-							html_text += all_entries;
+							html_text += new_entries;
 							html_text += "</tr>";
 						}
 					}
@@ -169,9 +166,9 @@
 					alert("Error: No rows present");
 				}
 				else{  										// All went with no errors
-					hWin = window.open("", "Assignment4", "height=800,width=1200");
-					hWin.document.write(html_text);
-					hWin.document.close();
+					new_window = window.open("", "Assignment4", "height=800,width=1200");
+					new_window.document.write(html_text);
+					new_window.document.close();
 				}
 			}
 
