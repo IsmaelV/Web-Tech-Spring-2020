@@ -17,6 +17,23 @@ function get_top_headlines(url) {
 }
 
 function add_top_headline_news(top_headlines){
+	document.getElementById("column2").innerHTML = "";  // Delete everything
+
+	var top = document.createElement("div")
+	top.id = "top"
+	var carousel = document.createElement("div")
+	carousel.id = "carousel"
+	var word_cloud = document.createElement("div")
+	word_cloud.id = "word_cloud"
+
+	top.appendChild(carousel)
+	top.appendChild(word_cloud)
+	document.getElementById("column2").appendChild(top)
+
+	var all_news = document.createElement("div")
+	all_news.id = "all_news"
+	document.getElementById("column2").appendChild(all_news)
+
 	document.getElementById("all_news").innerHTML = "";
 	write_word_cloud(top_headlines)
 	var articles = top_headlines.articles
@@ -130,7 +147,7 @@ function get_source_articles(arts){
 		top_articles.push(article)
 	}
 
-	return [cnn_arts, fox_articles]
+	return [cnn_arts, fox_articles, top_articles]
 }
 
 function write_word_cloud(top_headlines) {

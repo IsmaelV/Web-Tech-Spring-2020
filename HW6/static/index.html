@@ -17,11 +17,11 @@
 				position: sticky;
 			}
 
-			.column1{
+			#column1{
 				float: left;
 				width: 15%;
 			}
-			.column2{
+			#column2{
 				float: left;
 				width: 85%;
 			}
@@ -102,17 +102,13 @@
 
 	<body>
 		<div class="row">
-			<div class="sticky column1 btn-group">
+			<div id="column1" class="sticky btn-group">
 				<button id="Google_News" onclick="get_top_headlines('http://127.0.0.1:5000/top_headlines')">Google News</button>
 				<button id="Search">Search</button>
 			</div>
 
-			<div class="column2">
-				<div id="top">
-					<div id="carousel"></div>
-					<div id="word_cloud"></div>
-				</div>
-				<div id="all_news"></div>
+			<div id="column2">
+
 			</div>
 		</div>
 	</body>
