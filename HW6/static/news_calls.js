@@ -18,6 +18,7 @@ function get_top_headlines(url) {
 
 function add_top_headline_news(top_headlines){
 	document.getElementById("all_news").innerHTML = "";
+	write_word_cloud(top_headlines)
 	var articles = top_headlines.articles
 	console.log(articles)
 	var all_articles = get_source_articles(articles)
@@ -88,6 +89,7 @@ function create_articles_containers(articles, name){
 function get_source_articles(arts){
 	var cnn_arts = []
 	var fox_articles = []
+	var top_articles = []
 	for (var art_num in arts){
 		var article = arts[art_num]
 
@@ -99,8 +101,8 @@ function get_source_articles(arts){
 		var url_img = article.urlToImage
 		var published_at = article.publishedAt
 		var source = article.source
-		if(author === null | description === null | title === null | art_url === null | url_img === null
-		 | published_at === null | source.id === null | source.name === null | description == ""){
+		if(author === null || description === null || title === null || art_url === null || url_img === null
+		 || published_at === null || source.id === null || source.name === null || description == ""){
 			continue
 		}
 
@@ -110,7 +112,56 @@ function get_source_articles(arts){
 		else if (source.id == "fox-news"){
 			fox_articles.push(article)
 		}
+		top_articles.push(article)
 	}
 
 	return [cnn_arts, fox_articles]
+}
+
+function write_word_cloud(top_headlines) {
+
+	myWords = top_headlines.top_words
+
+	// set the dimensions and margins of the graph
+	var margin = {top: 10, right: 10, bottom: 10, left: 10},
+	    width = 350 - margin.left - margin.right,
+	    height = 350 - margin.top - margin.bottom;
+
+	// append the svg object to the body of the page
+	var svg = d3.select("#word_cloud").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform",
+	          "translate(" + margin.left + "," + margin.top + ")");
+
+	// Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+	// Wordcloud features that are different from one word to the other must be here
+	var layout = d3.layout.cloud()
+	  .size([width, height])
+	  .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
+	  .padding(5)        //space between words
+	  .rotate(function() { return ~~(Math.random() * 2) * 90; })
+	  .fontSize(function(d) { return d.size*10; })      // font size of words
+	  .on("end", draw);
+	layout.start();
+
+	// This function takes the output of 'layout' above and draw the words
+	// Wordcloud features that are THE SAME from one word to the other can be here
+	function draw(words){
+	  svg
+	    .append("g")
+	      .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+	      .selectAll("text")
+	        .data(words)
+	      .enter().append("text")
+	        .style("font-size", function(d) { return d.size; })
+	        .style("fill", "#69b3a2")
+	        .attr("text-anchor", "middle")
+	        .style("font-family", "Impact")
+	        .attr("transform", function(d) {
+	          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+	        })
+	        .text(function(d) { return d.text; });
+	}
 }

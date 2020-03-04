@@ -5,6 +5,11 @@
 		<meta charset="UTF-8">
 		<title>HW 6 | ivillega</title>
 
+		<!-- Load d3.js -->
+		<script src="https://d3js.org/d3.v4.js"></script>
+		<!-- Load d3-cloud -->
+		<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+
 		<script src="/static/news_calls.js"></script>
 
 		<style>
@@ -51,9 +56,13 @@
 				margin: 2px;
 				border-radius: 5px;
 				border: 1px solid black;
-
 				float: left;
 				width: 23%;
+				box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+				transition: 0.3s;
+			}
+			.single_article:hover{
+				box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2)
 			}
 			.article_img{
 				width: 100%;
@@ -95,10 +104,14 @@
 		<div class="row">
 			<div class="sticky column1 btn-group">
 				<button id="Google_News" onclick="get_top_headlines('http://127.0.0.1:5000/top_headlines')">Google News</button>
-				<button id="Search" value="two">Search</button>
+				<button id="Search">Search</button>
 			</div>
 
 			<div class="column2">
+				<div id="top">
+					<div id="carousel"></div>
+					<div id="word_cloud"></div>
+				</div>
 				<div id="all_news"></div>
 			</div>
 		</div>
