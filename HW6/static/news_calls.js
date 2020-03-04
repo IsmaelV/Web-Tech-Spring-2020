@@ -187,7 +187,7 @@ function write_word_cloud(top_headlines) {
 	      .selectAll("text")
 	        .data(words)
 	      .enter().append("text")
-	        .style("font-size", function(d) { return d.size; })
+	        .style("font-size", function(d) { return d.size + "px"; })
 	        .style("fill", "#69b3a2")
 	        .attr("text-anchor", "middle")
 	        .style("font-family", "Impact")
