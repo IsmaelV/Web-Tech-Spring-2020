@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask
 from newsapi import NewsApiClient
 
 newsApi = NewsApiClient(api_key='31527b1a768c43eab04c23920fc6627b')

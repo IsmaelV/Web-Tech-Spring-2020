@@ -14,28 +14,77 @@
 
 			.column1{
 				float: left;
-				width: 20%;
+				width: 15%;
 			}
 			.column2{
 				float: left;
-				width: 80%;
+				width: 85%;
 			}
 			.row:after{
 				content: "";
 				display: table;
 				clear: both;
 			}
+			.btn-group button{
+				border: 1px solid black;
+				width: 50%;
+				display: block;
+				padding: 10px 24px;
+			}
+			.btn-group button:not(:last-child){
+				border-bottom: none;
+			}
+
+			.header{
+				font-weight: bold;
+				text-align: center;
+				font-size: 50px;
+			}
+			.articles_container:after{
+				content: "";
+				display: table;
+				clear: both;
+			}
+			.single_article{
+				background-color: Gainsboro;
+				height: 400px;
+				margin: 2px;
+				border-radius: 5px;
+				border: 1px solid black;
+
+				float: left;
+				width: 23%;
+			}
+			.article_img{
+				width: 100%;
+				height: 40%;
+				border-radius: 5px;
+				object-fit: cover;
+			}
+			.article_title{
+				font-weight: bold;
+				text-align: center;
+			}
+			.article_description{
+				text-align: center;
+			}
 
 			#Google_News{
 				background-color: gray;
 				color: white;
+				text-align: center;
+				text-decoration: none;
+				font-size: 16px;
 			}
 			#Search{
-				background-color: white;
+				background-color: Gainsboro;
 				color: black;
+				text-align: center;
+				text-decoration: none;
+				font-size: 16px;
 			}
 			#Search:hover{
-				background-color: green;
+				background-color: #4CAF50;
 				color: white;
 			}
 		</style>
@@ -44,9 +93,8 @@
 
 	<body>
 		<div class="row">
-			<div class="sticky column1">
+			<div class="sticky column1 btn-group">
 				<button id="Google_News" onclick="get_top_headlines('http://127.0.0.1:5000/top_headlines')">Google News</button>
-				<br>
 				<button id="Search" value="two">Search</button>
 			</div>
 
