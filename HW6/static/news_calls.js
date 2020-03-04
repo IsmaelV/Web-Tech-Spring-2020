@@ -46,6 +46,7 @@ function create_articles_containers(articles, name){
 	// Begin iterating through all articles (at most 5)
 	var articles_container = document.createElement("div");
 	articles_container.classList.add("articles_container");
+	var url_dictionary = {}
 	for(var i = 0; i < articles.length; i++){
 		if (articles_container.childElementCount === 4){
 			break;
@@ -75,13 +76,27 @@ function create_articles_containers(articles, name){
 		description.classList.add("article_description")
 		single_article.appendChild(description)
 
-		single_article.onclick = function() {
-			window.open(article.url, "_blank")
-		};
+		// Set URL to set onto article later
+		url_dictionary[i] = article.url
 
 		// Add cell to container
 		articles_container.appendChild(single_article);
 	}
+
+	// Set up onclick events for each article
+	articles_container.childNodes[0].onclick = function() {
+		window.open(url_dictionary[0], "_blank");
+	}
+	articles_container.childNodes[1].onclick = function() {
+		window.open(url_dictionary[1], "_blank");
+	}
+	articles_container.childNodes[2].onclick = function() {
+		window.open(url_dictionary[2], "_blank");
+	}
+	articles_container.childNodes[3].onclick = function() {
+		window.open(url_dictionary[3], "_blank");
+	}
+
 	whole_container.appendChild(articles_container);
 	return whole_container
 }
