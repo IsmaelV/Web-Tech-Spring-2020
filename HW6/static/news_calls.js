@@ -35,13 +35,15 @@ function add_top_headline_news(top_headlines){
 	document.getElementById("column2").appendChild(all_news)
 
 	document.getElementById("all_news").innerHTML = "";
-	write_word_cloud(top_headlines)
+
 	var articles = top_headlines.articles
-	console.log(articles)
 	var all_articles = get_source_articles(articles)
-	console.log(all_articles)
 	var cnn_articles = all_articles[0]
 	var fox_articles = all_articles[1]
+	var top_articles_top_headlines = all_articles[2]
+
+	create_carousel(top_articles_top_headlines)
+	write_word_cloud(top_headlines)
 
 	var entire_container = document.createElement("div");
 	entire_container.appendChild(create_articles_containers(cnn_articles, "CNN"))
@@ -148,6 +150,36 @@ function get_source_articles(arts){
 	}
 
 	return [cnn_arts, fox_articles, top_articles]
+}
+
+var slideIndex = 0;
+function showSlides() {
+	var i;
+	var slides = document.getElementsByClassName("mySlides");
+	for (i = 0; i < slides.length; i++){
+		slides[i].style.display = "none";
+	}
+	slideIndex++;
+	if(slideIndex > slides.length) {slideIndex = 1}
+	slides[slideIndex - 1].style.display = "block";
+	setTimeout(showSlides, 4000); // Changes image every 4 seconds
+}
+
+function create_carousel(arts){
+	for(var k = 0; k < 5; k++){
+		car_art = arts[k];
+		var car_article = document.createElement("div");
+		car_article.classList.add("mySlides")
+		car_article.classList.add("fade")
+
+		var car_img = document.createElement("img")
+		car_img.src = car_art.urlToImage
+		car_img.classList.add("carousel_img")
+
+		car_article.appendChild(car_img)
+		document.getElementById("carousel").appendChild(car_article)
+	}
+	showSlides();
 }
 
 function write_word_cloud(top_headlines) {
