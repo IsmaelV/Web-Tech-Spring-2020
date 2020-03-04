@@ -8,7 +8,7 @@ everything_headlines = newsApi.get_everything(q='corona virus')
 
 sources = newsApi.get_sources()
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -21,8 +21,8 @@ def get_everything():
 	return everything_headlines
 
 
-@app.route('/cnn_fox')
-def get_cnn_fox():
+@app.route('/top_headlines')
+def get_top_headlines():
 	return top_headlines
 
 

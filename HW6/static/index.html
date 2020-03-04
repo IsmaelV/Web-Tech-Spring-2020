@@ -7,11 +7,53 @@
 
 		<script src="/static/news_calls.js"></script>
 
+		<style>
+			div.sticky{
+				position: sticky;
+			}
+
+			.column1{
+				float: left;
+				width: 20%;
+			}
+			.column2{
+				float: left;
+				width: 80%;
+			}
+			.row:after{
+				content: "";
+				display: table;
+				clear: both;
+			}
+
+			#Google_News{
+				background-color: gray;
+				color: white;
+			}
+			#Search{
+				background-color: white;
+				color: black;
+			}
+			#Search:hover{
+				background-color: green;
+				color: white;
+			}
+		</style>
+
 	</head>
 
 	<body>
-		<div id="all_news"></div>
-		<button id="get_headlines" onclick="get_top_headlines('http://127.0.0.1:5000/everything')">Get Virus</button>
+		<div class="row">
+			<div class="sticky column1">
+				<button id="Google_News" onclick="get_top_headlines('http://127.0.0.1:5000/top_headlines')">Google News</button>
+				<br>
+				<button id="Search" value="two">Search</button>
+			</div>
+
+			<div class="column2">
+				<div id="all_news"></div>
+			</div>
+		</div>
 	</body>
 
 </html>
