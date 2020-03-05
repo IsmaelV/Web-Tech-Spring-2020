@@ -16,8 +16,22 @@ function get_top_headlines(url) {
 	xmlreq.send();
 }
 
+function specific_search(top_search){
+	document.getElementById("content_container").innerHTML = "";  // Delete everything
+	document.getElementById("Search").classList.remove("active_button", "inactive_button")
+	document.getElementById("Google_News").classList.remove("active_button", "inactive_button")
+
+	document.getElementById("Search").classList.add("active_button")
+	document.getElementById("Google_News").classList.add("inactive_button")
+}
+
 function add_top_headline_news(top_headlines){
-	document.getElementById("column2").innerHTML = "";  // Delete everything
+	document.getElementById("content_container").innerHTML = "";  // Delete everything
+	document.getElementById("Google_News").classList.remove("active_button", "inactive_button")
+	document.getElementById("Search").classList.remove("active_button", "inactive_button")
+
+	document.getElementById("Google_News").classList.add("active_button")
+	document.getElementById("Search").classList.add("inactive_button")
 
 	var top = document.createElement("div")
 	top.id = "top"
@@ -28,11 +42,11 @@ function add_top_headline_news(top_headlines){
 
 	top.appendChild(carousel)
 	top.appendChild(word_cloud)
-	document.getElementById("column2").appendChild(top)
+	document.getElementById("content_container").appendChild(top)
 
 	var all_news = document.createElement("div")
 	all_news.id = "all_news"
-	document.getElementById("column2").appendChild(all_news)
+	document.getElementById("content_container").appendChild(all_news)
 
 	document.getElementById("all_news").innerHTML = "";
 
@@ -152,34 +166,70 @@ function get_source_articles(arts){
 	return [cnn_arts, fox_articles, top_articles]
 }
 
-var slideIndex = 0;
-function showSlides() {
-	var i;
-	var slides = document.getElementsByClassName("mySlides");
-	for (i = 0; i < slides.length; i++){
+// Automatically show the slideshow/carousel
+var slideIndex = -1;
+function autoShowSlides() {
+	var slides = document.getElementsByClassName("carousel_slide");
+	for (var i = 0; i < slides.length; i++){
 		slides[i].style.display = "none";
 	}
 	slideIndex++;
-	if(slideIndex > slides.length) {slideIndex = 1}
-	slides[slideIndex - 1].style.display = "block";
-	setTimeout(showSlides, 4000); // Changes image every 4 seconds
+	if(slideIndex >= slides.length) {slideIndex = 0}
+	slides[slideIndex].style.display = "block";
+	setTimeout(autoShowSlides, 4000); // Changes image every 4 seconds
 }
 
 function create_carousel(arts){
+	var my_urls = {}
 	for(var k = 0; k < 5; k++){
 		car_art = arts[k];
 		var car_article = document.createElement("div");
-		car_article.classList.add("mySlides")
+		car_article.classList.add("carousel_slide")
 		car_article.classList.add("fade")
 
 		var car_img = document.createElement("img")
 		car_img.src = car_art.urlToImage
 		car_img.classList.add("carousel_img")
 
+		var text_block = document.createElement("div")
+		var line_break = document.createElement("br")
+		var title_text = document.createElement("div")
+		title_text.innerHTML = car_art.title
+		title_text.classList.add("title_text_block")
+		text_block.appendChild(title_text)
+		text_block.appendChild(line_break)
+		var description_text = document.createElement("div")
+		description_text.innerHTML = car_art.description
+		description_text.classList.add("description_text_block")
+		text_block.appendChild(description_text)
+		text_block.classList.add("text-block")
+
+		my_urls[k] = car_art.url;
+
 		car_article.appendChild(car_img)
+		car_article.appendChild(text_block)
 		document.getElementById("carousel").appendChild(car_article)
 	}
-	showSlides();
+
+	// Add links to appropriate cards
+	var carousel_container = document.getElementById("carousel")
+	carousel_container.childNodes[0].onclick = function() {
+		window.open(my_urls[0], "_blank");
+	}
+	carousel_container.childNodes[1].onclick = function() {
+		window.open(my_urls[1], "_blank");
+	}
+	carousel_container.childNodes[2].onclick = function() {
+		window.open(my_urls[2], "_blank");
+	}
+	carousel_container.childNodes[3].onclick = function() {
+		window.open(my_urls[3], "_blank");
+	}
+	carousel_container.childNodes[4].onclick = function() {
+		window.open(my_urls[4], "_blank");
+	}
+
+	autoShowSlides();
 }
 
 function write_word_cloud(top_headlines) {

@@ -18,14 +18,14 @@
 
 	<body>
 		<div class="row">
-			<div id="column1" class="sticky btn-group">
-				<button id="Google_News" onclick="get_top_headlines('http://127.0.0.1:5000/top_headlines')">Google News</button>
-				<button id="Search">Search</button>
+			<div id="nav_container">
+				<div id="nav_bar" class="sticky btn-group">
+					<button id="Google_News" onclick="get_top_headlines('http://127.0.0.1:5000/top_headlines')">Google News</button>
+					<button id="Search" onclick="specific_search('hello_world')">Search</button>
+				</div>
 			</div>
 
-			<div id="column2">
-
-			</div>
+			<div id="content_container"></div>
 		</div>
 	</body>
 

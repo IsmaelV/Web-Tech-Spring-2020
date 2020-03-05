@@ -2,23 +2,20 @@ div.sticky{
 	position: sticky;
 }
 
-#column1{
-	float: left;
-	width: 15%;
+#nav_container{
+	flex: 23%;
 }
-#column2{
-	float: left;
-	width: 85%;
+#content_container{
+	flex: 77%;
 }
-.row:after{
-	content: "";
-	display: table;
-	clear: both;
+.row{
+	display: flex;
 }
 
 #carousel{
 	float: left;
 	width: 50%;
+	position: relative;
 }
 #word_cloud{
 	float: left;
@@ -85,72 +82,55 @@ div.sticky{
 	object-fit: cover;
 }
 
-#Google_News{
+.active_button{
 	background-color: gray;
 	color: white;
 	text-align: center;
 	text-decoration: none;
 	font-size: 16px;
 }
-#Search{
+.active_button:hover{
+	background-color: #4CAF50;
+	color: white;
+}
+.inactive_button{
 	background-color: Gainsboro;
 	color: black;
 	text-align: center;
 	text-decoration: none;
 	font-size: 16px;
 }
-#Search:hover{
+.inactive_button:hover{
 	background-color: #4CAF50;
 	color: white;
 }
 
-/* The following style is from W3 Schools*/
-/* Hide the images by default */
-.mySlides {
+.carousel_slide {
 	display: none;
 }
 
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  margin-top: -22px;
-  padding: 16px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-}
-
-/* Position the "next button" to the right */
-.next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}
-
-/* Fading animation */
 .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
   animation-name: fade;
   animation-duration: 1.5s;
 }
-
-@-webkit-keyframes fade {
+@keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
 }
 
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+.text-block {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(55, 55, 55, 0.7);
+  color: white;
+
+  border-radius: 5px;
+}
+.title_text_block{
+	font-size: 30px;
+}
+.description_text_block{
+	font-size: 20px;
 }
