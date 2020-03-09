@@ -17,7 +17,8 @@ function get_top_headlines(url) {
 }
 
 function specific_search(top_search){
-	document.getElementById("content_container").innerHTML = "";  // Delete everything
+	document.getElementById("top_news_headlines").innerHTML = "";  // Delete everything
+	document.getElementById("search_headlines").classList.remove("hide_content")
 	document.getElementById("Search").classList.remove("active_button", "inactive_button")
 	document.getElementById("Google_News").classList.remove("active_button", "inactive_button")
 
@@ -26,7 +27,8 @@ function specific_search(top_search){
 }
 
 function add_top_headline_news(top_headlines){
-	document.getElementById("content_container").innerHTML = "";  // Delete everything
+	document.getElementById("top_news_headlines").innerHTML = "";  // Delete everything
+	document.getElementById("search_headlines").classList.add("hide_content")
 	document.getElementById("Google_News").classList.remove("active_button", "inactive_button")
 	document.getElementById("Search").classList.remove("active_button", "inactive_button")
 
@@ -42,11 +44,11 @@ function add_top_headline_news(top_headlines){
 
 	top.appendChild(carousel)
 	top.appendChild(word_cloud)
-	document.getElementById("content_container").appendChild(top)
+	document.getElementById("top_news_headlines").appendChild(top)
 
 	var all_news = document.createElement("div")
 	all_news.id = "all_news"
-	document.getElementById("content_container").appendChild(all_news)
+	document.getElementById("top_news_headlines").appendChild(all_news)
 
 	document.getElementById("all_news").innerHTML = "";
 
@@ -64,7 +66,6 @@ function add_top_headline_news(top_headlines){
 	entire_container.appendChild(create_articles_containers(fox_articles, "Fox News"))
 	document.getElementById('all_news').appendChild(entire_container);
 }
-
 function create_articles_containers(articles, name){
 	// Create container that will hold everything to do with a source
 	var whole_container = document.createElement("div");
@@ -106,7 +107,7 @@ function create_articles_containers(articles, name){
 		// Add description to cell
 		var description = document.createElement("div")
 		description.innerHTML = article.description
-		description.classList.add("article_description")
+		description.classList.add("center_content")
 		single_article.appendChild(description)
 
 		// Set URL to set onto article later
@@ -133,7 +134,6 @@ function create_articles_containers(articles, name){
 	whole_container.appendChild(articles_container);
 	return whole_container
 }
-
 function get_source_articles(arts){
 	var cnn_arts = []
 	var fox_articles = []
@@ -178,7 +178,6 @@ function autoShowSlides() {
 	slides[slideIndex].style.display = "block";
 	setTimeout(autoShowSlides, 4000); // Changes image every 4 seconds
 }
-
 function create_carousel(arts){
 	var my_urls = {}
 	for(var k = 0; k < 5; k++){

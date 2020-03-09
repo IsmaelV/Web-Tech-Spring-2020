@@ -28,6 +28,12 @@ div.sticky{
 	clear: both;
 }
 
+#search_headlines{
+	borer: 1px solid black;
+	padding: 10px;
+	background-color: LightGray;
+}
+
 .btn-group button{
 	border: 1px solid black;
 	width: 50%;
@@ -72,7 +78,7 @@ div.sticky{
 	font-weight: bold;
 	text-align: center;
 }
-.article_description{
+.center_content{
 	text-align: center;
 }
 
@@ -133,4 +139,12 @@ div.sticky{
 }
 .description_text_block{
 	font-size: 20px;
+}
+
+.required-field{
+	color: red;
+}
+
+.hide_content{
+	display: none;
 }

@@ -25,7 +25,49 @@
 				</div>
 			</div>
 
-			<div id="content_container"></div>
+			<div id="content_container">
+				<div id="top_news_headlines"></div>
+
+				<div id="search_headlines" class="center_content hide_content">
+					<form id="search_form">
+						<label for="keyword">Keyword <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
+							<input type="text" id="keyword" name="keyword" required>
+						</label>
+						<label for="from">From <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
+							<input type="date" id="from" name="from" required>
+						</label>
+						<label for="to">To <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
+							<input type="date" id="to" name="to" required>
+						</label>
+
+						<br><br>
+
+						<label for="category">Category <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
+							<select id="category" name="category" required>
+								<option value='all'>all</option>
+								<option value='business'>Business</option>
+								<option value='entertainment'>Entertainment</option>
+								<option value='general'>General</option>
+								<option value='health'>Health</option>
+								<option value='science'>Science</option>
+								<option value='sports'>Sports</option>
+								<option value='technology'>Technology</option>
+							</select>
+						</label>
+
+						<label for="source">Source <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
+							<select id="source" name="source" required>
+								<option value='all'>all</option>
+							</select>
+						</label>
+
+						<br><br>
+
+						<input type="submit" value="Submit">
+						<input type="reset" value="Clear">
+					</form>
+				</div>
+			</div>
 		</div>
 	</body>
 
