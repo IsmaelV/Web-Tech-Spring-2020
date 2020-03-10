@@ -5,12 +5,8 @@
 		<meta charset="UTF-8">
 		<title>HW 6 | ivillega</title>
 
-		<!-- Load d3.js -->
 		<script src="https://d3js.org/d3.v4.js"></script>
-		<!-- Load d3-cloud -->
 		<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
-
-<!--		<script src="/static/news_calls.js"></script>-->
 
 		<link rel="stylesheet" href="/static/styles.css">
 
@@ -20,7 +16,7 @@
 		<div class="row">
 			<div id="nav_container">
 				<div id="nav_bar" class="sticky btn-group">
-					<button id="Google_News" onclick="get_top_headlines('http://127.0.0.1:5000/top_headlines')">Google News</button>
+					<button id="Google_News" onclick="get_top_headlines('/top_headlines')">Google News</button>
 					<button id="Search" onclick="specific_search('hello_world')">Search</button>
 				</div>
 			</div>
@@ -43,7 +39,7 @@
 						<br><br>
 
 						<label for="category">Category <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
-							<select id="category" name="category" required>
+							<select id="category" name="category" onchange="populate_source(this.value)" required>
 								<option value='all'>all</option>
 								<option value='business'>Business</option>
 								<option value='entertainment'>Entertainment</option>
@@ -57,14 +53,13 @@
 
 						<label for="source">Source <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
 							<select id="source" name="source" required>
-								<option value='all'>all</option>
 							</select>
 						</label>
 
 						<br><br>
 
 						<input type="submit" value="Submit">
-						<input type="reset" value="Clear">
+						<input type="button" value="Clear" onclick="get_default_values()">
 					</form>
 				</div>
 			</div>

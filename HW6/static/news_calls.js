@@ -8,12 +8,15 @@ function get_all_sources(){
 		if (xmlreq.readyState === 4){
 			if (xmlreq.status === 200){
 				receive_sources(JSON.parse(xmlreq.responseText));
+				populate_source("all")
+				format_date()
 			}
 		}
 	}
 	xmlreq.send();
 }
-var all_sources;
+var all_sources_json;
+var all_sources = [];
 var business_sources = [];
 var entertainment_sources = [];
 var general_sources = [];
@@ -22,11 +25,10 @@ var science_sources = [];
 var sports_sources = [];
 var tech_sources = [];
 function receive_sources(json_sources){
-	all_sources = json_sources.sources;
-	console.log("all_sources:")
-	console.log(all_sources)
-	for(var source_num in all_sources){
-		var s = all_sources[source_num]
+	all_sources_json = json_sources.sources;
+	for(var source_num in all_sources_json){
+		var s = all_sources_json[source_num]
+		all_sources.push(s)
 		if (s.category == "business"){ business_sources.push(s); }
 		else if (s.category == "entertainment"){ entertainment_sources.push(s); }
 		else if (s.category == "general"){ general_sources.push(s); }
@@ -34,6 +36,89 @@ function receive_sources(json_sources){
 		else if (s.category == "science"){ science_sources.push(s); }
 		else if (s.category == "sports"){ sports_sources.push(s); }
 		else if (s.category == "technology"){ tech_sources.push(s); }
+	}
+}
+
+function populate_source(cat_to_use){
+	var source_holder = document.getElementById("source");
+	source_holder.innerHTML = ""
+
+	var all_source = document.createElement("option")
+	all_source.value = "all"
+	all_source.innerHTML = "all"
+	source_holder.add(all_source)
+
+	if(cat_to_use == "all"){
+		for(var source_num in all_sources){
+			var source_to_use = all_sources[source_num];
+			var source_to_add = document.createElement("option");
+			source_to_add.value = source_to_use.id;
+			source_to_add.innerHTML = source_to_use.name;
+			source_holder.add(source_to_add);
+		}
+	}
+	else if(cat_to_use == "business"){
+		for(var source_num in business_sources){
+			var source_to_use = business_sources[source_num];
+			var source_to_add = document.createElement("option");
+			source_to_add.value = source_to_use.id;
+			source_to_add.innerHTML = source_to_use.name;
+			source_holder.add(source_to_add);
+		}
+	}
+	else if(cat_to_use == "entertainment"){
+		for(var source_num in entertainment_sources){
+			var source_to_use = entertainment_sources[source_num];
+			var source_to_add = document.createElement("option");
+			source_to_add.value = source_to_use.id;
+			source_to_add.innerHTML = source_to_use.name;
+			source_holder.add(source_to_add);
+		}
+	}
+	else if(cat_to_use == "general"){
+		for(var source_num in general_sources){
+			var source_to_use = general_sources[source_num];
+			var source_to_add = document.createElement("option");
+			source_to_add.value = source_to_use.id;
+			source_to_add.innerHTML = source_to_use.name;
+			source_holder.add(source_to_add);
+		}
+	}
+	else if(cat_to_use == "health"){
+		for(var source_num in health_sources){
+			var source_to_use = health_sources[source_num];
+			var source_to_add = document.createElement("option");
+			source_to_add.value = source_to_use.id;
+			source_to_add.innerHTML = source_to_use.name;
+			source_holder.add(source_to_add);
+		}
+	}
+	else if(cat_to_use == "science"){
+		for(var source_num in science_sources){
+			var source_to_use = science_sources[source_num];
+			var source_to_add = document.createElement("option");
+			source_to_add.value = source_to_use.id;
+			source_to_add.innerHTML = source_to_use.name;
+			source_holder.add(source_to_add);
+		}
+	}
+	else if(cat_to_use == "sports"){
+		for(var source_num in sports_sources){
+			var source_to_use = sports_sources[source_num];
+			var source_to_add = document.createElement("option");
+			source_to_add.value = source_to_use.id;
+			source_to_add.innerHTML = source_to_use.name;
+			source_holder.add(source_to_add);
+		}
+	}
+	else if(cat_to_use == "technology"){
+		for(var source_num in tech_sources){
+			var source_to_use = tech_sources[source_num];
+			var source_to_add = document.createElement("option");
+			source_to_add.value = source_to_use.id;
+			source_to_add.innerHTML = source_to_use.name;
+			source_holder.add(source_to_add);
+		}
 	}
 }
 
@@ -62,18 +147,6 @@ function get_search_headlines(content_sent) {
 	to_date = document.getElementById("to").value
 	category = document.getElementById("category").value
 	sources_chosen = document.getElementById("source").value
-
-//	var xmlreq = new XMLHttpRequest();
-//	xmlreq.open("POST", url, true);
-//
-//	xmlreq.onreadystatechange = function () {
-//		if (xmlreq.readyState === 4){
-//			if (xmlreq.status === 200){
-//				specific_search(JSON.parse(xmlreq.responseText))
-//			}
-//		}
-//	}
-//	xmlreq.send(content_sent);
 }
 
 function specific_search(top_search){
@@ -337,4 +410,40 @@ function write_word_cloud(top_headlines) {
 	        })
 	        .text(function(d) { return d.text; });
 	}
+}
+
+function format_date(){
+	var today = new Date();
+	var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+	var year = today.getFullYear();
+	var month = today.getMonth() + 1;
+	var day = today.getDate();
+
+	var lw_year = lastWeek.getFullYear();
+	var lw_month = lastWeek.getMonth() + 1;
+	var lw_day = lastWeek.getDate();
+
+	var todays_date = ""
+	todays_date += year.toString() + "-"
+	if (month < 10){ todays_date += "0"}
+	todays_date += month.toString() + "-"
+	if (day < 10){ todays_date += "0"}
+	todays_date += day.toString()
+
+	var lw_date = ""
+	lw_date += lw_year.toString() + "-"
+	if (lw_month < 10){ lw_date += "0"}
+	lw_date += lw_month.toString() + "-"
+	if (lw_day < 10){ lw_date += "0"}
+	lw_date += lw_day.toString()
+
+	document.getElementById('to').value = todays_date
+	document.getElementById('from').value = lw_date
+}
+
+function get_default_values(){
+	format_date();                                      // Get default date values
+	document.getElementById("keyword").value = ""       // Default keyword value is none
+	document.getElementById("category").value = "all"   // Default category
+	populate_source("all")                              // Default Source
 }
