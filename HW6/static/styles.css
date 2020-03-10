@@ -55,19 +55,19 @@ div.sticky{
 	text-align: center;
 	font-size: 50px;
 }
-.articles_container:after{
-	content: "";
+.articles_container{
 	display: table;
-	clear: both;
+	border-collapse: separate;
+	border-spacing: 10px;
+	width: 100%;
 }
 .single_article{
 	background-color: Gainsboro;
-	height: 400px;
-	margin: 2px;
+	display: table-cell;
+	margin: 5px;
 	border-radius: 5px;
-	border: 1px solid black;
-	float: left;
-	width: 23%;
+	border: 1px solid gray;
+	width: 200px;
 	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 	transition: 0.3s;
 }

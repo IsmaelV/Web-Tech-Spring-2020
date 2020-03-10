@@ -147,6 +147,8 @@ function get_search_headlines(content_sent) {
 	to_date = document.getElementById("to").value
 	category = document.getElementById("category").value
 	sources_chosen = document.getElementById("source").value
+
+
 }
 
 function specific_search(top_search){
