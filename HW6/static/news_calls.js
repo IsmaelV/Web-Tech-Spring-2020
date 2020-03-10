@@ -1,5 +1,45 @@
+document.getElementById("search_form").addEventListener("submit", (event) => event.preventDefault());
+
+function get_all_sources(){
+	var xmlreq = new XMLHttpRequest();
+	xmlreq.open("GET", '/sources', true);
+
+	xmlreq.onreadystatechange = function () {
+		if (xmlreq.readyState === 4){
+			if (xmlreq.status === 200){
+				receive_sources(JSON.parse(xmlreq.responseText));
+			}
+		}
+	}
+	xmlreq.send();
+}
+var all_sources;
+var business_sources = [];
+var entertainment_sources = [];
+var general_sources = [];
+var health_sources = [];
+var science_sources = [];
+var sports_sources = [];
+var tech_sources = [];
+function receive_sources(json_sources){
+	all_sources = json_sources.sources;
+	console.log("all_sources:")
+	console.log(all_sources)
+	for(var source_num in all_sources){
+		var s = all_sources[source_num]
+		if (s.category == "business"){ business_sources.push(s); }
+		else if (s.category == "entertainment"){ entertainment_sources.push(s); }
+		else if (s.category == "general"){ general_sources.push(s); }
+		else if (s.category == "health"){ health_sources.push(s); }
+		else if (s.category == "science"){ science_sources.push(s); }
+		else if (s.category == "sports"){ sports_sources.push(s); }
+		else if (s.category == "technology"){ tech_sources.push(s); }
+	}
+}
+
 window.onload = function() {
-	get_top_headlines('http://127.0.0.1:5000/top_headlines')
+	get_all_sources()
+	get_top_headlines('/top_headlines')
 }
 
 function get_top_headlines(url) {
@@ -14,6 +54,26 @@ function get_top_headlines(url) {
 		}
 	}
 	xmlreq.send();
+}
+
+function get_search_headlines(content_sent) {
+	keyword = document.getElementById("keyword").value
+	from_date = document.getElementById("from").value
+	to_date = document.getElementById("to").value
+	category = document.getElementById("category").value
+	sources_chosen = document.getElementById("source").value
+
+//	var xmlreq = new XMLHttpRequest();
+//	xmlreq.open("POST", url, true);
+//
+//	xmlreq.onreadystatechange = function () {
+//		if (xmlreq.readyState === 4){
+//			if (xmlreq.status === 200){
+//				specific_search(JSON.parse(xmlreq.responseText))
+//			}
+//		}
+//	}
+//	xmlreq.send(content_sent);
 }
 
 function specific_search(top_search){

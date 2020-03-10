@@ -10,7 +10,7 @@
 		<!-- Load d3-cloud -->
 		<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
 
-		<script src="/static/news_calls.js"></script>
+<!--		<script src="/static/news_calls.js"></script>-->
 
 		<link rel="stylesheet" href="/static/styles.css">
 
@@ -29,7 +29,7 @@
 				<div id="top_news_headlines"></div>
 
 				<div id="search_headlines" class="center_content hide_content">
-					<form id="search_form">
+					<form id="search_form" onsubmit="get_search_headlines(this)" method="get">
 						<label for="keyword">Keyword <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
 							<input type="text" id="keyword" name="keyword" required>
 						</label>
@@ -69,6 +69,8 @@
 				</div>
 			</div>
 		</div>
+
+	<script src="/static/news_calls.js"></script>
 	</body>
 
 </html>
