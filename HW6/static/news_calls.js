@@ -402,7 +402,7 @@ function write_word_cloud(top_headlines) {
 	        .data(words)
 	      .enter().append("text")
 	        .style("font-size", function(d) { return d.size + "px"; })
-	        .style("fill", "#69b3a2")
+	        .style("fill", "black")
 	        .attr("text-anchor", "middle")
 	        .style("font-family", "Impact")
 	        .attr("transform", function(d) {
