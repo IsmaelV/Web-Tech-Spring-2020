@@ -292,6 +292,13 @@ function post_search_results(all_valid_articles){
 		full_description_text.classList.add("search_description")
 		full_description_text.innerHTML = all_valid_articles[i].description
 
+		var remove_button = document.createElement("button")
+		remove_button.classList.add("remove_button")
+		remove_button.innerHTML = "X"
+		remove_button.onclick = function(){
+			minimizeArticle(this);
+		}
+
 		full_text_block.appendChild(full_title_text)
 //		full_text_block.appendChild(document.createElement("br"))
 		full_text_block.appendChild(author_div)
@@ -299,6 +306,7 @@ function post_search_results(all_valid_articles){
 		full_text_block.appendChild(date_div)
 		full_text_block.appendChild(full_description_text)
 		full_text_block.appendChild(link_to_site)
+		full_container.appendChild(remove_button)
 		full_container.appendChild(full_text_block)
 
 		// Add click function
@@ -315,6 +323,13 @@ function expandArticle(mContainer){
 	var full_id = "search_full_" + num.toString()
 	mContainer.classList.add("hide_search")
 	document.getElementById(full_id).classList.remove("hide_search")
+}
+function minimizeArticle(rButton){
+	var parent_node = rButton.parentElement;
+	var num = parent_node.id.substr(parent_node.id.length - 1)
+	var min_id = "search_min_" + num.toString()
+	parent_node.classList.add("hide_search")
+	document.getElementById(min_id).classList.remove("hide_search")
 }
 function unhide_five_search_articles(){
 	console.log("Unhiding articles")

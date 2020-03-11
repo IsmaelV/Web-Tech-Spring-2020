@@ -181,6 +181,13 @@ div.sticky{
 	border-radius: 5px;
 	display: flex;
 	background-color: Gainsboro;
+
+	position: relative;
+}
+.remove_button{
+	position: absolute;
+	top: 5px;
+	right: 5px;
 }
 
 .hide_search{
