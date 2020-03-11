@@ -183,7 +183,59 @@ function execute_search(k, f, t, s){
 }
 
 function post_search_results(all_valid_articles){
-	document.getElementById("headlines_searched").innerHTML = all_valid_articles;
+	var search_articles_container = document.getElementById("headlines_searched")
+	search_articles_container.innerHTML = "";
+	for (var i in all_valid_articles){
+		if (i >= 15){ break; }
+		var id_index = parseInt(i) + 1;
+		var min_id = "search_min_" + id_index.toString()
+		var full_id = "search_full_" + id_index.toString()
+
+		var min_container = document.createElement("div")
+		var full_container = document.createElement("div")
+
+		min_container.id = min_id
+		full_container.id = full_id
+
+		min_container.classList.add("hide_search", "min_search_article")
+		full_container.classList.add("hide_search", "full_search_article")
+
+		var search_img_container = document.createElement("div");
+		var search_img = document.createElement("img");
+		search_img.src = all_valid_articles[i].urlToImage;
+		search_img.classList.add("search_img");
+		search_img_container.appendChild(search_img)
+		min_container.appendChild(search_img_container)
+
+		var text_block = document.createElement("div")
+		var title_text = document.createElement("div")
+		title_text.classList.add("search_title")
+		title_text.innerHTML = all_valid_articles[i].title
+		var description_text = document.createElement("div")
+		description_text.classList.add("search_description_min")
+		description_text.innerHTML = all_valid_articles[i].description
+		text_block.appendChild(title_text)
+		text_block.appendChild(description_text)
+		min_container.appendChild(text_block)
+
+		search_articles_container.appendChild(min_container)
+		search_articles_container.appendChild(full_container)
+	}
+	unhide_search_articles()
+}
+function unhide_search_articles(){
+	console.log("Unhiding articles")
+	var search_articles_container = document.getElementById("headlines_searched")
+	var max_search = search_articles_container.childElementCount
+	for(var j = 0; j < max_search; j+=2){
+		if(j/2 >= 5){ break; }
+		var id_index = parseInt(j/2) + 1
+		console.log(id_index)
+		var min_id = "search_min_" + id_index.toString()
+		console.log(min_id)
+
+		document.getElementById(min_id).classList.remove("hide_search")
+	}
 }
 function specific_search(){
 	document.getElementById("top_news_headlines").innerHTML = "";  // Delete everything

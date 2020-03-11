@@ -46,6 +46,7 @@ def get_search_headlines():
 def get_top_headlines():
 	try:
 		top_headlines = newsApi.get_top_headlines(sources='cnn,fox-news')
+		all_top_headlines = newsApi.get_top_headlines(page_size=30)
 	except Exception as e:
 		return "Error in server", e
 
@@ -53,7 +54,7 @@ def get_top_headlines():
 	with current_app.open_resource('./misc/stopwords_en.txt') as f:
 		for word in f:
 			stop_words.append(word.rstrip().decode('utf-8'))
-	articles = top_headlines['articles']
+	articles = all_top_headlines['articles']
 	title_word_counter = dict()
 	for a in articles:
 		title = a['title']
