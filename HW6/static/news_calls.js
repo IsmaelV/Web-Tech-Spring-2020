@@ -154,14 +154,13 @@ function get_search_specs() {
 		alert("Your start date cannot be after the end date")
 	}
 	else{
-		execute_search(keyword, from_date, to_date, category, source_chosen)
+		document.getElementById("headlines_searched").innerHTML = "";
+		execute_search(keyword, from_date, to_date, source_chosen)
 	}
 }
 
 function execute_search(k, f, t, s){
 	var url_to_send = "/search_headlines?keyword=" + k + "&from_date=" + f + "&to_date=" + t + "&source=" + s;
-	console.log("URL to Send")
-	console.log(url_to_send)
 	var xmlreq = new XMLHttpRequest();
 	xmlreq.open("GET", url_to_send, true);
 
@@ -174,7 +173,12 @@ function execute_search(k, f, t, s){
 				}
 				else{
 					var valid_articles = getValidArticles(obj.articles);
-					post_search_results(valid_articles);
+					if (valid_articles.length == 0){
+						alert("Your search yielded no valid articles.")
+					}
+					else{
+						post_search_results(valid_articles);
+					}
 				}
 			}
 		}
@@ -222,7 +226,6 @@ function post_search_results(all_valid_articles){
 		var with_ellipse = text_desc.substr(0, text_desc.lastIndexOf(" ")) + " ..."
 		description_text.innerHTML = with_ellipse
 		text_block.appendChild(title_text)
-//		text_block.appendChild(document.createElement("br"))
 		text_block.appendChild(description_text)
 		min_container.appendChild(text_block)
 
@@ -249,9 +252,7 @@ function post_search_results(all_valid_articles){
 		author_span.innerHTML = "Author: "
 		var author_rest = document.createElement("span")
 		author_rest.classList.add("search_description")
-		var rest_text = "By "
-		rest_text += all_valid_articles[i].author;
-		author_rest.innerHTML = rest_text
+		author_rest.innerHTML = all_valid_articles[i].author;
 		author_div.appendChild(author_span)
 		author_div.appendChild(author_rest)
 
@@ -300,7 +301,6 @@ function post_search_results(all_valid_articles){
 		}
 
 		full_text_block.appendChild(full_title_text)
-//		full_text_block.appendChild(document.createElement("br"))
 		full_text_block.appendChild(author_div)
 		full_text_block.appendChild(source_div)
 		full_text_block.appendChild(date_div)
@@ -332,21 +332,19 @@ function minimizeArticle(rButton){
 	document.getElementById(min_id).classList.remove("hide_search")
 }
 function unhide_five_search_articles(){
-	console.log("Unhiding articles")
 	var search_articles_container = document.getElementById("headlines_searched")
 	var max_search = search_articles_container.childElementCount
 	for(var j = 0; j < max_search; j+=2){
 		if(j/2 >= 5){ break; }
 		var id_index = parseInt(j/2) + 1
-		console.log(id_index)
 		var min_id = "search_min_" + id_index.toString()
-		console.log(min_id)
 
 		document.getElementById(min_id).classList.remove("hide_search")
 	}
 	if (max_search/2 >= 6){
 		var show_more = document.createElement("button")
 		show_more.id = "show_more"
+		show_more.classList.add("inactive_button", "bottom_button")
 		show_more.innerHTML = "Show More"
 		show_more.onclick = function() {
 			showMore()
@@ -354,6 +352,7 @@ function unhide_five_search_articles(){
 
 		var show_less = document.createElement("button")
 		show_less.id = "show_less"
+		show_less.classList.add("inactive_button", "bottom_button")
 		show_less.innerHTML = "Show Less"
 		show_less.classList.add("hide_search")
 		show_less.onclick = function() {
@@ -539,7 +538,6 @@ function get_source_articles(arts){
 }
 function getValidArticles(arts){
 	var top_articles = []
-	console.log(arts)
 	for (var art_num in arts){
 		var article = arts[art_num]
 
@@ -704,8 +702,9 @@ function format_date(){
 }
 
 function get_default_values(){
-	format_date();                                      // Get default date values
-	document.getElementById("keyword").value = ""       // Default keyword value is none
-	document.getElementById("category").value = "all"   // Default category
-	populate_source("all")                              // Default Source
+	format_date();                                                  // Get default date values
+	document.getElementById("keyword").value = ""                   // Default keyword value is none
+	document.getElementById("category").value = "all"               // Default category
+	populate_source("all")                                          // Default Source
+	document.getElementById("headlines_searched").innerHTML = ""    // Remove search
 }

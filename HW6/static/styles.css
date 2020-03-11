@@ -11,6 +11,7 @@ div.sticky{
 }
 #content_container{
 	flex: 77%;
+	margin-right: 50px;
 }
 .row{
 	display: flex;
@@ -188,6 +189,11 @@ div.sticky{
 	position: absolute;
 	top: 5px;
 	right: 5px;
+	cursor: pointer;
+	font-size: 20px;
+	color: #8A2BE2;
+	border: none;
+	background-color: Gainsboro;
 }
 
 .hide_search{
@@ -216,4 +222,17 @@ div.sticky{
 
 .bold_text{
 	font-weight: bold;
+}
+.bottom_button{
+	border: 1px solid black;
+	width: 25%;
+	padding: 10px 24px;
+}
+#sub_button{
+	border: 1px solid black;
+	padding: 10px 24px;
+}
+#clear_button{
+	border: 1px solid black;
+	padding: 10px 24px;
 }
