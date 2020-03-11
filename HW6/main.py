@@ -1,4 +1,4 @@
-from flask import Flask, current_app
+from flask import Flask, current_app, request
 from newsapi import NewsApiClient
 
 newsApi = NewsApiClient(api_key='31527b1a768c43eab04c23920fc6627b')
@@ -15,6 +15,31 @@ def get_index():
 def get_sources():
 	sources = newsApi.get_sources(language='en')
 	return sources
+
+
+@app.route('/search_headlines')
+def get_search_headlines():
+	try:
+		q = request.args['keyword']
+		source = request.args['source']
+		from_date = request.args['from_date']
+		to_date = request.args['to_date']
+		if source == "all":
+			search_headlines = newsApi.get_everything(q=q,
+														from_param=from_date,
+														to=to_date,
+														language='en',
+														page_size=30)
+		else:
+			search_headlines = newsApi.get_everything(q=q,
+														sources=source,
+														from_param=from_date,
+														to=to_date,
+														language='en',
+														page_size=30)
+		return search_headlines
+	except Exception as e:
+		return e.args[0]
 
 
 @app.route('/top_headlines')

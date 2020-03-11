@@ -27,6 +27,7 @@ div.sticky{
 	width: 40%;
 	text-align: center;
 	background-color: LightGray;
+	border-radius: 5px;
 }
 #top:after{
 	content: "";
@@ -34,7 +35,7 @@ div.sticky{
 	clear: both;
 }
 
-#search_headlines{
+#search_form{
 	borer: 1px solid black;
 	padding: 10px;
 	background-color: LightGray;

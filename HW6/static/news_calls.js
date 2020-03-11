@@ -141,17 +141,51 @@ function get_top_headlines(url) {
 	xmlreq.send();
 }
 
-function get_search_headlines(content_sent) {
-	keyword = document.getElementById("keyword").value
-	from_date = document.getElementById("from").value
-	to_date = document.getElementById("to").value
-	category = document.getElementById("category").value
-	sources_chosen = document.getElementById("source").value
+function get_search_specs() {
+	var keyword = document.getElementById("keyword").value
+	var from_date = document.getElementById("from").value
+	var to_date = document.getElementById("to").value
+	var category = document.getElementById("category").value
+	var source_chosen = document.getElementById("source").value
 
-
+	var startDate = new Date(from_date)
+	var endDate = new Date(to_date)
+	if (startDate > endDate){
+		alert("Your start date cannot be after the end date")
+	}
+	else{
+		execute_search(keyword, from_date, to_date, category, source_chosen)
+	}
 }
 
-function specific_search(top_search){
+function execute_search(k, f, t, s){
+	var url_to_send = "/search_headlines?keyword=" + k + "&from_date=" + f + "&to_date=" + t + "&source=" + s;
+	console.log("URL to Send")
+	console.log(url_to_send)
+	var xmlreq = new XMLHttpRequest();
+	xmlreq.open("GET", url_to_send, true);
+
+	xmlreq.onreadystatechange = function(){
+		if(xmlreq.readyState == 4){
+			if(xmlreq.status == 200){
+				var obj = JSON.parse(xmlreq.responseText)
+				if(obj.status == "error"){
+					alert(obj.message);
+				}
+				else{
+					var valid_articles = getValidArticles(obj.articles);
+					post_search_results(valid_articles);
+				}
+			}
+		}
+	}
+	xmlreq.send()
+}
+
+function post_search_results(all_valid_articles){
+	document.getElementById("headlines_searched").innerHTML = all_valid_articles;
+}
+function specific_search(){
 	document.getElementById("top_news_headlines").innerHTML = "";  // Delete everything
 	document.getElementById("search_headlines").classList.remove("hide_content")
 	document.getElementById("Search").classList.remove("active_button", "inactive_button")
@@ -300,6 +334,29 @@ function get_source_articles(arts){
 
 	return [cnn_arts, fox_articles, top_articles]
 }
+function getValidArticles(arts){
+	var top_articles = []
+	console.log(arts)
+	for (var art_num in arts){
+		var article = arts[art_num]
+
+		// Begin Error Checking
+		var author = article.author
+		var description = article.description
+		var title = article.title
+		var art_url = article.url
+		var url_img = article.urlToImage
+		var published_at = article.publishedAt
+		var source = article.source
+		if(author === null || description === null || title === null || art_url === null || url_img === null
+		 || published_at === null || source.id === null || source.name === null || description == ""){
+			continue
+		}
+		top_articles.push(article)
+	}
+
+	return top_articles
+}
 
 // Automatically show the slideshow/carousel
 var slideIndex = -1;
@@ -390,7 +447,7 @@ function write_word_cloud(top_headlines) {
 	  .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
 	  .padding(5)        //space between words
 	  .rotate(function() { return ~~(Math.random() * 2) * 90; })
-	  .fontSize(function(d) { return d.size*10; })      // font size of words
+	  .fontSize(function(d) { return d.size*13; })      // font size of words
 	  .on("end", draw);
 	layout.start();
 

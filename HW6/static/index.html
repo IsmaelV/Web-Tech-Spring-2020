@@ -17,7 +17,7 @@
 			<div id="nav_container">
 				<div id="nav_bar" class="sticky btn-group">
 					<button id="Google_News" onclick="get_top_headlines('/top_headlines')">Google News</button>
-					<button id="Search" onclick="specific_search('hello_world')">Search</button>
+					<button id="Search" onclick="specific_search()">Search</button>
 				</div>
 			</div>
 
@@ -25,7 +25,7 @@
 				<div id="top_news_headlines"></div>
 
 				<div id="search_headlines" class="center_content hide_content">
-					<form id="search_form" onsubmit="get_search_headlines(this)" method="get">
+					<form id="search_form" onsubmit="get_search_specs()" method="get">
 						<label for="keyword">Keyword <span class="required-field">*&nbsp;&nbsp;&nbsp;</span>
 							<input type="text" id="keyword" name="keyword" required>
 						</label>
@@ -61,6 +61,7 @@
 						<input type="submit" value="Submit">
 						<input type="button" value="Clear" onclick="get_default_values()">
 					</form>
+					<div id="headlines_searched"></div>
 				</div>
 			</div>
 		</div>
