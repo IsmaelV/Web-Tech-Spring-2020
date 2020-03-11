@@ -191,15 +191,18 @@ function post_search_results(all_valid_articles){
 		var min_id = "search_min_" + id_index.toString()
 		var full_id = "search_full_" + id_index.toString()
 
+		// Create elements for containers
 		var min_container = document.createElement("div")
 		var full_container = document.createElement("div")
-
 		min_container.id = min_id
 		full_container.id = full_id
 
+		// Hide all articles
 		min_container.classList.add("hide_search", "min_search_article")
 		full_container.classList.add("hide_search", "full_search_article")
 
+		// ---------- Create Minimized container ----------
+		// Add image
 		var search_img_container = document.createElement("div");
 		var search_img = document.createElement("img");
 		search_img.src = all_valid_articles[i].urlToImage;
@@ -207,21 +210,111 @@ function post_search_results(all_valid_articles){
 		search_img_container.appendChild(search_img)
 		min_container.appendChild(search_img_container)
 
+		// Add text
 		var text_block = document.createElement("div")
+		text_block.classList.add("search_text_block")
 		var title_text = document.createElement("div")
 		title_text.classList.add("search_title")
 		title_text.innerHTML = all_valid_articles[i].title
 		var description_text = document.createElement("div")
-		description_text.classList.add("search_description_min")
-		description_text.innerHTML = all_valid_articles[i].description
+		description_text.classList.add("search_description")
+		var text_desc = all_valid_articles[i].description.substr(0, 75)
+		var with_ellipse = text_desc.substr(0, text_desc.lastIndexOf(" ")) + " ..."
+		description_text.innerHTML = with_ellipse
 		text_block.appendChild(title_text)
+//		text_block.appendChild(document.createElement("br"))
 		text_block.appendChild(description_text)
 		min_container.appendChild(text_block)
 
+		// ---------- Create Maximized/Full container ----------
+		// Add Image
+		var full_search_img_container = document.createElement("div");
+		var full_search_img = document.createElement("img");
+		full_search_img.src = all_valid_articles[i].urlToImage;
+		full_search_img.classList.add("search_img");
+		full_search_img_container.appendChild(full_search_img)
+		full_container.appendChild(full_search_img_container)
+
+		// Add Text
+		var full_text_block = document.createElement("div")
+		full_text_block.classList.add("search_text_block")
+
+		var full_title_text = document.createElement("div")
+		full_title_text.classList.add("search_title")
+		full_title_text.innerHTML = all_valid_articles[i].title
+
+		var author_div = document.createElement("div")
+		var author_span = document.createElement("span")
+		author_span.classList.add("bold_text", "search_description")
+		author_span.innerHTML = "Author: "
+		var author_rest = document.createElement("span")
+		author_rest.classList.add("search_description")
+		var rest_text = "By "
+		rest_text += all_valid_articles[i].author;
+		author_rest.innerHTML = rest_text
+		author_div.appendChild(author_span)
+		author_div.appendChild(author_rest)
+
+		var source_div = document.createElement("div")
+		var source_span = document.createElement("span")
+		source_span.classList.add("bold_text", "search_description")
+		source_span.innerHTML = "Source: "
+		var source_rest = document.createElement("span")
+		source_rest.classList.add("search_description")
+		source_rest.innerHTML = all_valid_articles[i].source.name;
+		source_div.appendChild(source_span)
+		source_div.appendChild(source_rest)
+
+		var date_div = document.createElement("div")
+		var date_span = document.createElement("span")
+		date_span.classList.add("bold_text", "search_description")
+		date_span.innerHTML = "Date: "
+		var date_rest = document.createElement("span")
+		date_rest.classList.add("search_description")
+
+		var full_date = all_valid_articles[i].publishedAt.substr(0,10);
+		var m = full_date.substr(5, 7).substr(0,2);
+		var day = full_date.substr(8, 10);
+		var year = full_date.substr(0, 4);
+		date_rest.innerHTML = m + "/" + day + "/" + year
+		date_div.appendChild(date_span)
+		date_div.appendChild(date_rest)
+
+		var link_to_site = document.createElement("div")
+		var a_tag = document.createElement("a")
+		a_tag.classList.add("search_description")
+		a_tag.href = all_valid_articles[i].url
+		a_tag.target = "_blank"
+		a_tag.innerHTML = "See Original Post"
+		link_to_site.appendChild(a_tag)
+
+		var full_description_text = document.createElement("div")
+		full_description_text.classList.add("search_description")
+		full_description_text.innerHTML = all_valid_articles[i].description
+
+		full_text_block.appendChild(full_title_text)
+//		full_text_block.appendChild(document.createElement("br"))
+		full_text_block.appendChild(author_div)
+		full_text_block.appendChild(source_div)
+		full_text_block.appendChild(date_div)
+		full_text_block.appendChild(full_description_text)
+		full_text_block.appendChild(link_to_site)
+		full_container.appendChild(full_text_block)
+
+		// Add click function
+		min_container.onclick = function(){
+			expandArticle(this);
+		}
 		search_articles_container.appendChild(min_container)
 		search_articles_container.appendChild(full_container)
 	}
 	unhide_five_search_articles()
+}
+function expandArticle(mContainer){
+	var num = mContainer.id.substr(mContainer.id.length - 1)
+	var full_id = "search_full_" + num.toString()
+	mContainer.classList.add("hide_search")
+	document.getElementById(full_id).classList.remove("hide_search")
 }
 function unhide_five_search_articles(){
 	console.log("Unhiding articles")

@@ -159,7 +159,6 @@ div.sticky{
 }
 
 .min_search_article{
-	height: 100px;
 	width: 90%;
 	padding: 10px;
 	margin: 10px;
@@ -175,7 +174,6 @@ div.sticky{
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2)
 }
 .full_search_article{
-	height: 150px;
 	width: 90%;
 	padding: 10px;
 	margin: 10px;
@@ -195,11 +193,20 @@ div.sticky{
 	height: 75px;
 	object-fit: cover;
 }
+.search_text_block{
+	margin-left: 15px;
+	text-align: left;
+}
 .search_title{
 	font-weight: bold;
-	font-size: 15px;
-	text-align: center;
+	font-size: 20px;
+	text-align: left;
 }
-.search_description_min{
-	font-size: 10px;
+.search_description{
+	font-size: 18px;
+	text-align: left;
+}
+
+.bold_text{
+	font-weight: bold;
 }
