@@ -1,2 +1,4 @@
-./HW8/node_modules/*
-./HW8/package-lock.json
+HW8/node_modules/*
+HW8/package-lock.json
+HW8/package.json
+.idea
