@@ -1,5 +1,3 @@
-# Guardian Key: 8126d847-7110-45e4-a2fe-52649e661988
-# NYTimes Key: PzTs2D8kgMtEJuVIvbJbEfoymayJoGlZ
 from nytimesarticle import articleAPI
 from topstories import TopStoriesAPI
 from flask import Flask, current_app, jsonify
