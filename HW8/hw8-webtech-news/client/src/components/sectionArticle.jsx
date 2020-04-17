@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../styles/sectionArticle.css";
 
 class SectionArticle extends Component {
   state = {
@@ -96,57 +97,21 @@ class SectionArticle extends Component {
   }
 
   render() {
-    const containerStyle = {
-      border: "1px solid black",
-      margin: "1em",
-      padding: "1em",
-      overflow: "auto"
-    };
-    const infoStyle = {
-      float: "left",
-      width: "75%"
-    };
-    const imgStyle = {
-      float: "left",
-      width: "25%"
-    };
-    const dateStyle = {
-      float: "left",
-      fontStyle: "italic"
-    };
-    const sectionStyle = {
-      float: "right",
-      fontSize: "1em"
-    };
-    const titleStyle = {
-      fontSize: "1.3em",
-      fontWeight: "bold",
-      textAlign: "left"
-    };
-    const contentStyle = {
-      textAlign: "left"
-    };
     return (
-      <div style={containerStyle}>
-        <img style={imgStyle} src={this.state.image} alt="Article" />
+      <div className="containerStyle">
+        <img className="imgStyle" src={this.state.image} alt="Article" />
 
-        <div style={infoStyle} className="m2">
-          <div style={titleStyle} className="ml-3">
-            {this.state.title}
-          </div>
+        <div className="m2 infoStyle">
+          <div className="ml-3 titleStyle">{this.state.title}</div>
 
-          <div style={contentStyle} className="ml-3">
-            {this.state.content}
-          </div>
+          <div className="ml-3 contentStyle">{this.state.content}</div>
 
           <br />
 
           <div>
-            <div style={dateStyle} className="ml-3">
-              {this.state.date}
-            </div>
+            <div className="ml-3 dateStyle">{this.state.date}</div>
 
-            <div style={sectionStyle} className="badge badge-primary">
+            <div className="sectionStyle badge badge-primary">
               {this.state.section}
             </div>
           </div>
