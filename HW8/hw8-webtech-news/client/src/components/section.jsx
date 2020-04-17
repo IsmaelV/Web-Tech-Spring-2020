@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Loading from "./loading";
+import AllSectionArticles from "./allSectionArticles";
 
 class Section extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class Section extends Component {
     xmlreq.onreadystatechange = function() {
       if (xmlreq.readyState === 4) {
         if (xmlreq.status === 200) {
-          callback(xmlreq.responseText);
+          callback(JSON.parse(xmlreq.responseText));
         }
       }
     };
@@ -32,7 +33,15 @@ class Section extends Component {
   }
 
   updateContent(data) {
-    this.setState({ content: data });
+    this.setState({
+      content: (
+        <AllSectionArticles
+          toggle_status={this.props.toggle_status}
+          articles={data}
+        />
+      )
+    });
+    // this.setState({ content: data });
   }
 
   componentDidMount() {
