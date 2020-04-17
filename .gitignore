@@ -1,4 +1,6 @@
 HW8/node_modules/*
+HW8/tmp-react-app
+HW8/example-react-app-express
 HW8/package-lock.json
 HW8/package.json
 .idea
