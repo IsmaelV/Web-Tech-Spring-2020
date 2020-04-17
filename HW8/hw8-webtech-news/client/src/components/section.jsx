@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import Loading from "./loading";
 
 class Section extends Component {
   constructor(props) {
     super(props);
     this.callAPI = this.callAPI.bind(this);
-    this.state = { content: "Loading..." };
+    this.state = { content: <Loading /> };
   }
 
   callAPI(callback) {
@@ -39,7 +40,7 @@ class Section extends Component {
   }
 
   render() {
-    return <div>{this.state.content}</div>;
+    return <React.Fragment>{this.state.content}</React.Fragment>;
   }
 }
 
