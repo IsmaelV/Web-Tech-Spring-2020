@@ -1,0 +1,42 @@
+.detailedContainer {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin: 1em;
+  padding: 1em;
+  overflow: auto;
+}
+.detailedImg {
+  width: 97%;
+  display: block;
+}
+
+.detailedTitle {
+  font-size: 1.9em;
+  font-style: italic;
+}
+.detailedDescrip {
+  font-size: 1em;
+}
+.detailedDescrip:hover {
+  cursor: pointer;
+}
+.detailedFull:hover {
+  cursor: pointer;
+}
+.detailedDateStyle {
+  font-size: 1.25em;
+  float: left;
+}
+.detailedShareButton {
+  margin-left: 0em;
+  margin-right: 0em;
+}
+#shareButtonContainer {
+  float: right;
+}
+#detailedDateShare {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

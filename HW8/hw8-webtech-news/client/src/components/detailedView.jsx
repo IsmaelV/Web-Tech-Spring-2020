@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Loading from "./loading";
+import DetailedArticle from "./detailedArticle";
 
 class DetailedView extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class DetailedView extends Component {
   callAPI(callback) {
     let url_to_use = "https://ivillega-nytimes-guardian.wl.r.appspot.com/";
     var endOfURL = "";
+    var news_source = "";
 
     // Switch the /news_source/ and /article_view/ positions for valid url
     if (this.props.location.pathname.split("/", 3)[2] === "guardian") {
@@ -19,12 +21,14 @@ class DetailedView extends Component {
         "/article_view/guardian/",
         ""
       );
+      news_source = "guardian";
     } else {
       url_to_use += "nytimes/article_view/";
       endOfURL = this.props.location.pathname.replace(
         "/article_view/nytimes/",
         ""
       );
+      news_source = "nytimes";
     }
     url_to_use += encodeURIComponent(endOfURL); // Encode URL to be valid
 
@@ -34,7 +38,7 @@ class DetailedView extends Component {
     xmlreq.onreadystatechange = function() {
       if (xmlreq.readyState === 4) {
         if (xmlreq.status === 200) {
-          callback(xmlreq.responseText);
+          callback([JSON.parse(xmlreq.responseText), news_source]);
         }
       }
     };
@@ -43,7 +47,9 @@ class DetailedView extends Component {
   }
 
   updateContent(data) {
-    this.setState({ content: data });
+    this.setState({
+      content: <DetailedArticle article={data[0]} news_source={data[1]} />
+    });
   }
 
   componentDidMount() {
