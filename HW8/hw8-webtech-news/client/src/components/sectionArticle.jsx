@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { MdShare } from "react-icons/md";
 import ShareModal from "./shareModal";
+import { Redirect } from "react-router-dom";
 import "../styles/sectionArticle.css";
 
 class SectionArticle extends Component {
@@ -11,6 +12,8 @@ class SectionArticle extends Component {
     articleUrl: "",
     image: "",
     section: "",
+    redirect_url: "",
+    article_id: "",
     showModal: false
   };
   constructor(props) {
@@ -18,6 +21,7 @@ class SectionArticle extends Component {
     this.constructCard = this.constructCard.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleContainerClick = this.handleContainerClick.bind(this);
   }
 
   constructCard(callback) {
@@ -28,11 +32,13 @@ class SectionArticle extends Component {
     let articleUrl = "";
     let date = "";
     let imgSrc = "";
+    let articleId = "";
     if (this.props.news_source === "nytimes") {
       section = fullArticle.section;
       title = fullArticle.title;
       content = fullArticle.abstract;
       articleUrl = fullArticle.url;
+      articleId = fullArticle.url;
       date = fullArticle.published_date.substr(0, 10);
 
       // Look for image
@@ -66,7 +72,7 @@ class SectionArticle extends Component {
           .join(". ") + "...";
 
       articleUrl = fullArticle.webUrl;
-
+      articleId = fullArticle.id;
       date = fullArticle.webPublicationDate.substr(0, 10);
 
       // Look for image
@@ -98,7 +104,9 @@ class SectionArticle extends Component {
       date: date,
       articleUrl: articleUrl,
       image: imgSrc,
-      section: section
+      section: section,
+      redirect_url: "/article_view/" + this.props.news_source + "/" + articleId,
+      article_id: articleId
     });
   }
 
@@ -111,6 +119,23 @@ class SectionArticle extends Component {
   }
   handleCloseModal() {
     this.setState({ showModal: false });
+  }
+
+  handleContainerClick(e) {
+    if (e.target.getAttribute("id") === "shareButton") {
+      return true;
+    } else if (
+      e.target.getAttribute("id") === "articleContainer" ||
+      e.target.getAttribute("id") === "articleImg" ||
+      e.target.getAttribute("id") === "titleText" ||
+      e.target.getAttribute("id") === "contentText" ||
+      e.target.getAttribute("id") === "contentDate" ||
+      e.target.getAttribute("id") === "contentBadge"
+    ) {
+      console.log(this.state.redirect_url);
+      console.log(this.state.article_id);
+      this.setState({ goToDetailedView: true });
+    }
   }
 
   componentDidMount() {
@@ -140,29 +165,46 @@ class SectionArticle extends Component {
       default:
         badge_classes += "secondary";
     }
+
+    if (this.state.goToDetailedView) {
+      return <Redirect to={this.state.redirect_url} />;
+    }
+
     return (
-      <div className="containerStyle">
-        <img className="imgStyle" src={this.state.image} alt="Article" />
+      <div
+        className="containerStyle"
+        id="articleContainer"
+        onClick={event => this.handleContainerClick(event)}
+      >
+        <img
+          className="imgStyle"
+          id="articleImg"
+          src={this.state.image}
+          alt="Article"
+        />
 
         <div className="m2 infoStyle">
           <div className="ml-3 titleStyle">
-            {this.state.title}
-            <MdShare onClick={this.handleOpenModal} />
+            <span id="titleText">{this.state.title}</span>
+            <MdShare id="shareButton" onClick={this.handleOpenModal} />
           </div>
 
-          <div className="ml-3 contentStyle">{this.state.content}</div>
-
+          <div id="contentText" className="ml-3 contentStyle">
+            {this.state.content}
+          </div>
           <br />
+          <div id="contentFooter">
+            <div id="contentDate" className="ml-3 dateStyle">
+              {this.state.date}
+            </div>
 
-          <div>
-            <div className="ml-3 dateStyle">{this.state.date}</div>
-
-            <div className={badge_classes}>
+            <div id="contentBadge" className={badge_classes}>
               {this.state.section.toUpperCase()}
             </div>
           </div>
         </div>
         <ShareModal
+          id="modalShare"
           showModal={this.state.showModal}
           title={this.state.title}
           handleCloseModal={this.handleCloseModal}

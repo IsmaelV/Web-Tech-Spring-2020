@@ -2,6 +2,7 @@ import React from "react";
 import MyNav from "./components/nav";
 import Section from "./components/section";
 import { Switch, Route, Redirect } from "react-router-dom";
+import DetailedView from "./components/detailedView";
 import "./App.css";
 
 class App extends React.Component {
@@ -82,6 +83,7 @@ class App extends React.Component {
                 />
               )}
             />
+            <Route path="/article_view/" component={DetailedView} />
           </Switch>
         </div>
       </React.Fragment>
