@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { MdShare } from "react-icons/md";
+import ShareModal from "./shareModal";
 import "../styles/sectionArticle.css";
 
 class SectionArticle extends Component {
@@ -9,11 +10,14 @@ class SectionArticle extends Component {
     date: "",
     articleUrl: "",
     image: "",
-    section: ""
+    section: "",
+    showModal: false
   };
   constructor(props) {
     super(props);
     this.constructCard = this.constructCard.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
   }
 
   constructCard(callback) {
@@ -58,7 +62,7 @@ class SectionArticle extends Component {
       content =
         content
           .split(". ")
-          .slice(0, 2)
+          .slice(0, 4)
           .join(". ") + "...";
 
       articleUrl = fullArticle.webUrl;
@@ -102,6 +106,13 @@ class SectionArticle extends Component {
     this.setState(data);
   }
 
+  handleOpenModal() {
+    this.setState({ showModal: true });
+  }
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
+
   componentDidMount() {
     this.constructCard(data => this.updateState(data));
   }
@@ -136,7 +147,7 @@ class SectionArticle extends Component {
         <div className="m2 infoStyle">
           <div className="ml-3 titleStyle">
             {this.state.title}
-            <MdShare />
+            <MdShare onClick={this.handleOpenModal} />
           </div>
 
           <div className="ml-3 contentStyle">{this.state.content}</div>
@@ -146,9 +157,17 @@ class SectionArticle extends Component {
           <div>
             <div className="ml-3 dateStyle">{this.state.date}</div>
 
-            <div className={badge_classes}>{this.state.section}</div>
+            <div className={badge_classes}>
+              {this.state.section.toUpperCase()}
+            </div>
           </div>
         </div>
+        <ShareModal
+          showModal={this.state.showModal}
+          title={this.state.title}
+          handleCloseModal={this.handleCloseModal}
+          webUrl={this.state.articleUrl}
+        />
       </div>
     );
   }
