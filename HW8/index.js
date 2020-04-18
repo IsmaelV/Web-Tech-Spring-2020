@@ -111,7 +111,7 @@ app.get("/guardian/:category", (req, res) => {
       cat +
       "?api-key=" +
       guardian_api_key +
-      "&show-blocks-all";
+      "&show-blocks=all";
   }
 
   var xmlreq = new XMLHttpRequest();
