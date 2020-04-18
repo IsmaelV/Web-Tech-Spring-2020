@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { MdShare } from "react-icons/md";
 import "../styles/sectionArticle.css";
 
 class SectionArticle extends Component {
@@ -49,33 +50,42 @@ class SectionArticle extends Component {
           "https://upload.wikimedia.org/wikipedia/commons/0/0e/Nytimes_hq.jpg";
       }
     } else {
-      section = fullArticle.sectionName;
+      section = fullArticle.sectionId;
       title = fullArticle.webTitle;
-      // content = fullArticle.blocks.body[0].bodyTextSummary;
+
+      // Get small portion of body text to show in article view
+      content = fullArticle.blocks.body[0].bodyTextSummary;
+      content =
+        content
+          .split(". ")
+          .slice(0, 2)
+          .join(". ") + ".";
+
       articleUrl = fullArticle.webUrl;
+
       date = fullArticle.webPublicationDate.substr(0, 10);
 
       // Look for image
-      //   let imgFound = false;
-      //   imgSrc = "";
-      //   for (
-      //     var index = 0;
-      //     index < fullArticle.blocks.main.elements[0].assets.length;
-      //     index++
-      //   ) {
-      //     if (
-      //       fullArticle.blocks.main.elements[0].assets[index].typeData.width >=
-      //       2000
-      //     ) {
-      //       imgSrc = fullArticle.blocks.main.elements[0].assets[index].file;
-      //       imgFound = true;
-      //       break;
-      //     }
-      //   }
-      //   if (!imgFound) {
-      //     imgSrc =
-      //       "https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png";
-      //   }
+      let imgFound = false;
+      imgSrc = "";
+      for (
+        var index = 0;
+        index < fullArticle.blocks.main.elements[0].assets.length;
+        index++
+      ) {
+        if (
+          fullArticle.blocks.main.elements[0].assets[index].typeData.width >=
+          2000
+        ) {
+          imgSrc = fullArticle.blocks.main.elements[0].assets[index].file;
+          imgFound = true;
+          break;
+        }
+      }
+      if (!imgFound) {
+        imgSrc =
+          "https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png";
+      }
     }
 
     callback({
@@ -102,7 +112,10 @@ class SectionArticle extends Component {
         <img className="imgStyle" src={this.state.image} alt="Article" />
 
         <div className="m2 infoStyle">
-          <div className="ml-3 titleStyle">{this.state.title}</div>
+          <div className="ml-3 titleStyle">
+            {this.state.title}
+            <MdShare />
+          </div>
 
           <div className="ml-3 contentStyle">{this.state.content}</div>
 

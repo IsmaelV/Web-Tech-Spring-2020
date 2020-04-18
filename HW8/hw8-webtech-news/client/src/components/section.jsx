@@ -41,7 +41,6 @@ class Section extends Component {
         />
       )
     });
-    // this.setState({ content: data });
   }
 
   componentDidMount() {
