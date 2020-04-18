@@ -1,7 +1,7 @@
 .containerStyle {
   border: 1px solid lightgray;
   border-radius: 5px;
-  background-color: Gainsboro;
+  /* background-color: Gainsboro; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   margin: 1em;
@@ -35,4 +35,20 @@
 }
 .contentStyle {
   text-align: left;
+}
+
+.badge-world {
+  background-color: purple;
+  color: white;
+}
+.badge-politics {
+  background-color: #419488;
+  color: white;
+}
+.badge-business {
+  background-color: #4696ec;
+  color: white;
+}
+.badge-tech {
+  background-color: #cedc39;
 }

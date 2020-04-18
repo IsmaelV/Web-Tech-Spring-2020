@@ -59,7 +59,7 @@ class SectionArticle extends Component {
         content
           .split(". ")
           .slice(0, 2)
-          .join(". ") + ".";
+          .join(". ") + "...";
 
       articleUrl = fullArticle.webUrl;
 
@@ -107,6 +107,28 @@ class SectionArticle extends Component {
   }
 
   render() {
+    // Change badge background depending on section
+    var badge_classes = "sectionStyle badge badge-";
+    switch (this.state.section) {
+      case "world":
+        badge_classes += "world";
+        break;
+      case "politics":
+        badge_classes += "politics";
+        break;
+      case "business":
+        badge_classes += "business";
+        break;
+      case "technology":
+        badge_classes += "tech";
+        break;
+      case "sports":
+      case "sport":
+        badge_classes += "warning";
+        break;
+      default:
+        badge_classes += "secondary";
+    }
     return (
       <div className="containerStyle">
         <img className="imgStyle" src={this.state.image} alt="Article" />
@@ -124,9 +146,7 @@ class SectionArticle extends Component {
           <div>
             <div className="ml-3 dateStyle">{this.state.date}</div>
 
-            <div className="sectionStyle badge badge-primary">
-              {this.state.section}
-            </div>
+            <div className={badge_classes}>{this.state.section}</div>
           </div>
         </div>
       </div>
