@@ -1,7 +1,7 @@
 import React from "react";
 import MyNav from "./components/nav";
 import Section from "./components/section";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 
 class App extends React.Component {
@@ -24,8 +24,9 @@ class App extends React.Component {
           toggle_status={this.state.news_source}
           handleChange={this.handleChange}
         />
-        <div className="App">
+        <div>
           <Switch>
+            <Redirect exact from="/" to="/home" />
             <Route
               path="/home"
               exact
