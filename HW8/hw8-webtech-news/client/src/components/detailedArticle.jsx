@@ -7,9 +7,11 @@ import {
   EmailShareButton,
   EmailIcon
 } from "react-share";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { Redirect } from "react-router-dom";
 import commentBox from "commentbox.io";
 import ReactTooltip from "react-tooltip";
+import { Container, Row, Col } from "react-bootstrap";
 import "../styles/detailedArticle.css";
 import "../styles/standard.css";
 
@@ -29,6 +31,7 @@ class DetailedArticle extends Component {
     super(props);
     this.constructCard = this.constructCard.bind(this);
     this.handleHideUnhide = this.handleHideUnhide.bind(this);
+    console.log(localStorage);
   }
 
   constructDate(dateString) {
@@ -150,9 +153,10 @@ class DetailedArticle extends Component {
           .join(". ") + "...";
 
       articleUrl = fullArticle.response.content.webUrl;
-      date = this.constructDate(
-        fullArticle.response.content.webPublicationDate.substr(0, 10)
-      );
+      // date = this.constructDate(
+      //   fullArticle.response.content.webPublicationDate.substr(0, 10)
+      // );
+      date = fullArticle.response.content.webPublicationDate.substr(0, 10);
 
       // Look for image
       let imgFound = false;
@@ -209,24 +213,27 @@ class DetailedArticle extends Component {
     }
 
     return (
-      <div>
-        <div className="detailedContainer" id="detailedArticleContainer">
-          <div className="detailedTitle">
-            <span id="titleText">{this.state.title}</span>
-          </div>
+      // <Container fluid>
+      <React.Fragment>
+        <Container
+          fluid
+          className="detailedContainer"
+          id="detailedArticleContainer"
+        >
+          <Row id="detailedTitle">{this.state.title}</Row>
 
-          <div id="detailedDateShare">
-            <div id="detailedDate" className="detailedDateStyle">
+          <Row noGutters={true} id="detailedDateShare">
+            <Col id="detailedDate" xs="4" sm="4" md="8" lg="8" xl="8">
               {this.state.date}
-            </div>
-            <div id="shareButtonContainer">
+            </Col>
+            <Col id="shareButtonContainer" xs="7" sm="7" md="3" lg="3" xl="3">
               <FacebookShareButton
                 url={this.state.articleUrl}
                 hashtag="#CSCI_571_NewsApp"
                 className="detailedShareButton"
                 data-tip="Facebook"
               >
-                <FacebookIcon round={true} size={30} />
+                <FacebookIcon round={true} size={"3.25vh"} />
               </FacebookShareButton>
 
               <TwitterShareButton
@@ -235,7 +242,7 @@ class DetailedArticle extends Component {
                 className="detailedShareButton"
                 data-tip="Twitter"
               >
-                <TwitterIcon round={true} size={30} />
+                <TwitterIcon round={true} size={"3.25vh"} />
               </TwitterShareButton>
 
               <EmailShareButton
@@ -244,34 +251,37 @@ class DetailedArticle extends Component {
                 className="detailedShareButton"
                 data-tip="Email"
               >
-                <EmailIcon round={true} size={30} />
+                <EmailIcon round={true} size={"3.25vh"} />
               </EmailShareButton>
 
               <ReactTooltip effect="solid" />
-            </div>
-          </div>
+            </Col>
+            <Col id="bookmarkContainer" xs="1" sm="1" md="1" lg="1" xl="1">
+              <FaRegBookmark />
+            </Col>
+          </Row>
 
-          <div id="articleImg">
+          <Row id="articleImg">
             <img className="detailedImg" src={this.state.image} alt="Article" />
-          </div>
+          </Row>
 
-          <div
+          <Row
             id="detailedDescription"
             className="m-3 detailedDescrip"
             onClick={this.handleHideUnhide}
           >
             {this.state.description}
-          </div>
-          <div
+          </Row>
+          <Row
             id="detailedFullText"
             className="m-3 detailedFull hidden"
             onClick={this.handleHideUnhide}
           >
             {this.state.full_text}
-          </div>
-        </div>
+          </Row>
+        </Container>
         <div className="commentbox" />
-      </div>
+      </React.Fragment>
     );
   }
 }
