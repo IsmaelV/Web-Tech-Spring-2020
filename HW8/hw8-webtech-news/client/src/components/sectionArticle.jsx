@@ -190,7 +190,7 @@ class SectionArticle extends Component {
               alt="Article"
             />
           </Col>
-          <Col sm="12" md="8" lg="8" xl="8" id="rightSide">
+          <Col sm="12" md="12" lg="8" xl="8" id="rightSide">
             <div id="rightSideContent" className="m2 infoStyle">
               <div className="ml-3 titleStyle">
                 <span id="titleText">{this.state.title}</span>

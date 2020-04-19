@@ -3,10 +3,11 @@ import { Navbar, Nav, Form, FormControl } from "react-bootstrap";
 import SwitchToggle from "./switchToggle";
 import { NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/nav.css";
 
 const MyNav = props => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg" className="bg-custom-color">
       <Form inline>
         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
       </Form>

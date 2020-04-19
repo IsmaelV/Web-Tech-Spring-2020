@@ -17,7 +17,7 @@ const Loading = () => {
 
   return (
     <div style={centerStyle}>
-      <BounceLoader color="#00ece0" />
+      <BounceLoader color="#2f4bc6" />
       <br />
       <br />
       <div style={textStyle}>Loading ...</div>
