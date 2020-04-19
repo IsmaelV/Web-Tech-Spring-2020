@@ -164,19 +164,15 @@ class DetailedArticle extends Component {
       // Look for image
       let imgFound = false;
       imgSrc = "";
-      for (
-        var index = 0;
-        index <
-        fullArticle.response.content.blocks.main.elements[0].assets.length;
-        index++
-      ) {
-        if (
-          fullArticle.response.content.blocks.main.elements[0].assets[index]
-            .typeData.width >= 2000
-        ) {
-          imgSrc =
-            fullArticle.response.content.blocks.main.elements[0].assets[index]
-              .file;
+      var imgPath = "";
+      if (fullArticle.response.content.blocks.main) {
+        imgPath = fullArticle.response.content.blocks.main;
+      } else {
+        imgPath = fullArticle.response.content.blocks.body[0];
+      }
+      for (var g = 0; g < imgPath.elements[0].assets.length; g++) {
+        if (imgPath.elements[0].assets[g].typeData.width >= 2000) {
+          imgSrc = imgPath.elements[0].assets[g].file;
           imgFound = true;
           break;
         }

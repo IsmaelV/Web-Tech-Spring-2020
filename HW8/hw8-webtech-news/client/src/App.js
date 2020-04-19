@@ -107,10 +107,7 @@ class App extends React.Component {
               )}
             />
             <Route path="/article_view/" component={DetailedView} />
-            <Route
-              path="/search/"
-              component={() => <Search query={"tesla"} />}
-            />
+            <Route path="/search/" component={Search} />
           </Switch>
         </div>
       </div>

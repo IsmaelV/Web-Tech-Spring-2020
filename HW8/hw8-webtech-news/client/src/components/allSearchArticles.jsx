@@ -6,7 +6,6 @@ class AllSearchArticles extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props);
     const guardian_articles = this.props.articles;
     var all_articles = [];
     if (guardian_articles.length > 0) {

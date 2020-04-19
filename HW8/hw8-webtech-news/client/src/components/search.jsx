@@ -6,7 +6,11 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.callSearchAPI = this.callSearchAPI.bind(this);
-    this.state = { q: this.props.query, content: <Loading /> };
+    var query = this.props.location.pathname
+      .split("/")
+      .slice(2, this.props.location.pathname.split("/").length)
+      .join("/");
+    this.state = { q: query, content: <Loading /> };
   }
 
   callSearchAPI(query, news_source, callback) {

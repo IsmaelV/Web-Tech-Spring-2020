@@ -78,15 +78,15 @@ class SearchArticle extends Component {
       // Look for image
       let imgFound = false;
       imgSrc = "";
-      for (
-        var g = 0;
-        g < fullArticle.blocks.main.elements[0].assets.length;
-        g++
-      ) {
-        if (
-          fullArticle.blocks.main.elements[0].assets[g].typeData.width >= 2000
-        ) {
-          imgSrc = fullArticle.blocks.main.elements[0].assets[g].file;
+      var imgPath = "";
+      if (fullArticle.blocks.main) {
+        imgPath = fullArticle.blocks.main;
+      } else {
+        imgPath = fullArticle.blocks.body[0];
+      }
+      for (var g = 0; g < imgPath.elements[0].assets.length; g++) {
+        if (imgPath.elements[0].assets[g].typeData.width >= 2000) {
+          imgSrc = imgPath.elements[0].assets[g].file;
           imgFound = true;
           break;
         }
