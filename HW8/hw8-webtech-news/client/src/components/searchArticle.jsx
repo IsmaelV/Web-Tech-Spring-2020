@@ -3,7 +3,9 @@ import { MdShare } from "react-icons/md";
 import ShareModal from "./shareModal";
 import { Redirect } from "react-router-dom";
 import Card from "react-bootstrap/Card";
+import { Col } from "react-bootstrap";
 import "../styles/sectionArticle.css";
+import "../styles/searchArticle.css";
 
 class SearchArticle extends Component {
   state = {
@@ -125,19 +127,18 @@ class SearchArticle extends Component {
   handleContainerClick(e) {
     if (e.target.getAttribute("id") === "shareButton") {
       return true;
+    } else if (
+      e.target.getAttribute("id") === "cardContainer" ||
+      e.target.getAttribute("id") === "cardBody" ||
+      e.target.getAttribute("id") === "articleImg" ||
+      e.target.getAttribute("id") === "cardTitle" ||
+      e.target.getAttribute("id") === "contentText" ||
+      e.target.getAttribute("id") === "contentDate" ||
+      e.target.getAttribute("id") === "contentBadge" ||
+      e.target.getAttribute("id") === "contentFooter"
+    ) {
+      this.setState({ goToDetailedView: true });
     }
-    //   else if (
-    //     e.target.getAttribute("id") === "articleContainer" ||
-    //     e.target.getAttribute("id") === "articleImg" ||
-    //     e.target.getAttribute("id") === "cardTitle" ||
-    //     e.target.getAttribute("id") === "contentText" ||
-    //     e.target.getAttribute("id") === "contentDate" ||
-    //     e.target.getAttribute("id") === "contentBadge"
-    //   ) {
-    //     console.log(this.state.redirect_url);
-    //     console.log(this.state.article_id);
-    //     this.setState({ goToDetailedView: true });
-    //   }
   }
 
   render() {
@@ -168,27 +169,43 @@ class SearchArticle extends Component {
       return <Redirect to={this.state.redirect_url} />;
     }
 
-    return (
-      <Card>
-        <Card.Body>
-          <Card.Title>
-            <span id="cardTitle">{this.state.title}</span>
-            <MdShare id="shareButton" onClick={this.handleOpenModal} />
-          </Card.Title>
-          <div>
-            <Card.Img id="articleImg" src={this.state.image} />
-          </div>
-          <div id="contentFooter">
-            <div id="contentDate" className="ml-3 dateStyle">
-              {this.state.date}
-            </div>
+    var myCardStyle = {
+      marginBottom: "1.5vh"
+    };
 
-            <div id="contentBadge" className={badge_classes}>
-              {this.state.section}
+    return (
+      <Col sm="12" md="6" lg="3" xl="3" id="cardContainer">
+        <Card
+          style={myCardStyle}
+          onClick={event => this.handleContainerClick(event)}
+        >
+          <Card.Body id="cardBody">
+            <Card.Title>
+              <span id="cardTitle">{this.state.title}</span>
+              <MdShare id="shareButton" onClick={this.handleOpenModal} />
+            </Card.Title>
+            <div style={myCardStyle}>
+              <Card.Img id="articleImg" src={this.state.image} />
             </div>
-          </div>
-        </Card.Body>
-      </Card>
+            <div id="contentFooter">
+              <div id="contentDate" className="ml-3 dateStyle">
+                {this.state.date}
+              </div>
+
+              <div id="contentBadge" className={badge_classes}>
+                {this.state.section}
+              </div>
+            </div>
+          </Card.Body>
+        </Card>
+        <ShareModal
+          id="modalShare"
+          showModal={this.state.showModal}
+          title={this.state.title}
+          handleCloseModal={this.handleCloseModal}
+          webUrl={this.state.articleUrl}
+        />
+      </Col>
     );
   }
 }

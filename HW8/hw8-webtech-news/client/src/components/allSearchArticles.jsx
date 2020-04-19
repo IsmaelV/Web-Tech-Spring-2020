@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SearchArticle from "./searchArticle";
+import { Container, Row } from "react-bootstrap";
 
 class AllSearchArticles extends Component {
   constructor(props) {
@@ -17,16 +18,37 @@ class AllSearchArticles extends Component {
       }
     }
 
-    this.state = { all_articles: all_articles };
+    var first_row = all_articles.slice(0, 4);
+    var mid_row = all_articles.slice(4, 8);
+    var last_row = all_articles.slice(8, 10);
+
+    this.state = {
+      all_articles: all_articles,
+      first_row: first_row,
+      mid_row: mid_row,
+      last_row: last_row
+    };
   }
 
   render() {
     return (
-      <div>
-        {this.state.all_articles.map(article => (
-          <SearchArticle article={article} />
-        ))}
-      </div>
+      <Container>
+        <Row>
+          {this.state.first_row.map(fArti => (
+            <SearchArticle article={fArti} />
+          ))}
+        </Row>
+        <Row>
+          {this.state.mid_row.map(mArti => (
+            <SearchArticle article={mArti} />
+          ))}
+        </Row>
+        <Row>
+          {this.state.last_row.map(lArti => (
+            <SearchArticle article={lArti} />
+          ))}
+        </Row>
+      </Container>
     );
   }
 }

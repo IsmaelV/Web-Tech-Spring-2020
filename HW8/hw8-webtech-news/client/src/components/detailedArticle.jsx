@@ -10,7 +10,6 @@ import {
 import { Redirect } from "react-router-dom";
 import commentBox from "commentbox.io";
 import ReactTooltip from "react-tooltip";
-import { Container, Row, Col } from "react-bootstrap";
 import "../styles/detailedArticle.css";
 import "../styles/standard.css";
 
