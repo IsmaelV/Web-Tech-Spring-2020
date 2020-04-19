@@ -259,7 +259,7 @@ class DetailedArticle extends Component {
               <ReactTooltip effect="solid" />
             </Col>
             <Col id="bookmarkContainer" xs="1" sm="1" md="1" lg="1" xl="1">
-              <FaRegBookmark />
+              <FaRegBookmark data-tip="Bookmark" />
             </Col>
           </Row>
 

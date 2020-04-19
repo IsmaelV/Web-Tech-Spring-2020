@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Nav, Form, FormControl } from "react-bootstrap";
 import SwitchToggle from "./switchToggle";
 import { NavLink } from "react-router-dom";
+import { FaRegBookmark } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/nav.css";
 
@@ -31,6 +32,13 @@ const MyNav = props => {
           Sports
         </Nav.Link>
       </Nav>
+      <Nav.Link as={NavLink} to="/bookmarks">
+        <FaRegBookmark
+          color="white"
+          size="2vh"
+          style={{ marginRight: "1vh" }}
+        />
+      </Nav.Link>
       <SwitchToggle
         toggle_status={props.toggle_status}
         handleChange={props.handleChange}
