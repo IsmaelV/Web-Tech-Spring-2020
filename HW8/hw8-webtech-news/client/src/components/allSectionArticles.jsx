@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SectionArticle from "./sectionArticle";
+import "../styles/standard.css";
 
 class AllSectionArticles extends Component {
   constructor(props) {
@@ -24,8 +25,13 @@ class AllSectionArticles extends Component {
   }
 
   render() {
+    const styles = {
+      width: "100%",
+      height: "100%",
+      margin: "0%"
+    };
     return (
-      <div>
+      <div style={styles}>
         {this.state.all_articles.map(article => (
           <SectionArticle news_source={this.state.news} article={article} />
         ))}

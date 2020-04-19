@@ -1,7 +1,13 @@
 .shareButton {
-  margin-right: 2.85em;
-  margin-left: 2.85em;
+  margin-right: 4.7vh;
+  margin-left: 4.7vh;
 }
 .shareContainer {
   width: 100%;
+}
+.titleTextModal {
+  font-size: 2vh;
+}
+.shareViaModal {
+  font-size: 2vh;
 }

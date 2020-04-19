@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Loading from "./loading";
 import AllSectionArticles from "./allSectionArticles";
+import "../styles/standard.css";
 
 class Section extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class Section extends Component {
   }
 
   render() {
-    return <React.Fragment>{this.state.content}</React.Fragment>;
+    return <div className="fullScreen">{this.state.content}</div>;
   }
 }
 

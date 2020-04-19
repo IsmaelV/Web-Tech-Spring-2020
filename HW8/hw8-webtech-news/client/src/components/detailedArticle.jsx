@@ -10,6 +10,7 @@ import {
 import { Redirect } from "react-router-dom";
 import commentBox from "commentbox.io";
 import ReactTooltip from "react-tooltip";
+import { Container, Row, Col } from "react-bootstrap";
 import "../styles/detailedArticle.css";
 import "../styles/standard.css";
 
@@ -211,12 +212,12 @@ class DetailedArticle extends Component {
     return (
       <div>
         <div className="detailedContainer" id="detailedArticleContainer">
-          <div className="ml-3 detailedTitle">
+          <div className="detailedTitle">
             <span id="titleText">{this.state.title}</span>
           </div>
 
           <div id="detailedDateShare">
-            <div id="detailedDate" className="ml-3 detailedDateStyle">
+            <div id="detailedDate" className="detailedDateStyle">
               {this.state.date}
             </div>
             <div id="shareButtonContainer">
@@ -251,12 +252,9 @@ class DetailedArticle extends Component {
             </div>
           </div>
 
-          <img
-            className="detailedImg m-3"
-            id="articleImg"
-            src={this.state.image}
-            alt="Article"
-          />
+          <div id="articleImg">
+            <img className="detailedImg" src={this.state.image} alt="Article" />
+          </div>
 
           <div
             id="detailedDescription"

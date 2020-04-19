@@ -15,10 +15,10 @@ const ShareModal = props => {
   return (
     <Modal show={props.showModal} onHide={props.handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>{props.title}</Modal.Title>
+        <Modal.Title className="titleTextModal">{props.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="centering">Share via</div>
+        <div className="centering shareViaModal">Share via</div>
 
         <div className="shareContainer">
           <FacebookShareButton

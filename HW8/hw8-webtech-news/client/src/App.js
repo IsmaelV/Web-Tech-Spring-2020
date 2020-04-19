@@ -3,6 +3,7 @@ import MyNav from "./components/nav";
 import Section from "./components/section";
 import { Switch, Route, Redirect } from "react-router-dom";
 import DetailedView from "./components/detailedView";
+import Search from "./components/search";
 import "./App.css";
 
 class App extends React.Component {
@@ -19,13 +20,20 @@ class App extends React.Component {
   }
 
   render() {
+    const styles = {
+      width: "100%",
+      height: "100%",
+      padding: "0%",
+      margin: "0%"
+    };
     return (
-      <React.Fragment>
+      <div style={styles}>
         <MyNav
           toggle_status={this.state.news_source}
           handleChange={this.handleChange}
         />
-        <div>
+
+        <div className="mainContentContainer">
           <Switch>
             <Redirect exact from="/" to="/home" />
             <Route
@@ -84,9 +92,13 @@ class App extends React.Component {
               )}
             />
             <Route path="/article_view/" component={DetailedView} />
+            <Route
+              path="/search/"
+              component={() => <Search query={"tesla"} />}
+            />
           </Switch>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

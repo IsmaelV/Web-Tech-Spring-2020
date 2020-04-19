@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class SwitchToggle extends Component {
   render() {
     return (
-      <label>
+      <React.Fragment>
         <span className="text-white">NY Times</span>
         <Switch
           onChange={this.props.handleChange}
@@ -15,7 +15,7 @@ class SwitchToggle extends Component {
           onColor={"#037ffc"}
         />
         <span className="text-white">The Guardian</span>
-      </label>
+      </React.Fragment>
     );
   }
 }

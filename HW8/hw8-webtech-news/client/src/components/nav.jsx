@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const MyNav = props => {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Form inline>
         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
       </Form>

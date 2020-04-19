@@ -3,6 +3,7 @@ import { MdShare } from "react-icons/md";
 import ShareModal from "./shareModal";
 import { Redirect } from "react-router-dom";
 import "../styles/sectionArticle.css";
+import { Container, Row, Col } from "react-bootstrap";
 
 class SectionArticle extends Component {
   state = {
@@ -171,38 +172,45 @@ class SectionArticle extends Component {
     }
 
     return (
-      <div
+      <Container
+        fluid
         className="containerStyle"
         id="articleContainer"
         onClick={event => this.handleContainerClick(event)}
       >
-        <img
-          className="imgStyle"
-          id="articleImg"
-          src={this.state.image}
-          alt="Article"
-        />
+        <Row className="rowContainer">
+          <Col className="imageContainer">
+            <img
+              className="imgStyle"
+              id="articleImg"
+              src={this.state.image}
+              alt="Article"
+            />
+          </Col>
+          <Col sm="12" md="8" lg="8" xl="8">
+            <div className="m2 infoStyle">
+              <div className="ml-3 titleStyle">
+                <span id="titleText">{this.state.title}</span>
+                <MdShare id="shareButton" onClick={this.handleOpenModal} />
+              </div>
 
-        <div className="m2 infoStyle">
-          <div className="ml-3 titleStyle">
-            <span id="titleText">{this.state.title}</span>
-            <MdShare id="shareButton" onClick={this.handleOpenModal} />
-          </div>
+              <div id="contentText" className="ml-3 contentStyle">
+                {this.state.content}
+              </div>
+              <br />
+              <div id="contentFooter">
+                <div id="contentDate" className="ml-3 dateStyle">
+                  {this.state.date}
+                </div>
 
-          <div id="contentText" className="ml-3 contentStyle">
-            {this.state.content}
-          </div>
-          <br />
-          <div id="contentFooter">
-            <div id="contentDate" className="ml-3 dateStyle">
-              {this.state.date}
+                <div id="contentBadge" className={badge_classes}>
+                  {this.state.section.toUpperCase()}
+                </div>
+              </div>
+              <br />
             </div>
-
-            <div id="contentBadge" className={badge_classes}>
-              {this.state.section.toUpperCase()}
-            </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
         <ShareModal
           id="modalShare"
           showModal={this.state.showModal}
@@ -210,7 +218,7 @@ class SectionArticle extends Component {
           handleCloseModal={this.handleCloseModal}
           webUrl={this.state.articleUrl}
         />
-      </div>
+      </Container>
     );
   }
 }
