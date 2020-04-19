@@ -128,6 +128,7 @@ class SectionArticle extends Component {
     } else if (
       e.target.getAttribute("id") === "articleContainer" ||
       e.target.getAttribute("id") === "articleImg" ||
+      e.target.getAttribute("id") === "rightSide" ||
       e.target.getAttribute("id") === "titleText" ||
       e.target.getAttribute("id") === "contentText" ||
       e.target.getAttribute("id") === "contentDate" ||
@@ -187,7 +188,7 @@ class SectionArticle extends Component {
               alt="Article"
             />
           </Col>
-          <Col sm="12" md="8" lg="8" xl="8">
+          <Col sm="12" md="8" lg="8" xl="8" id="rightSide">
             <div className="m2 infoStyle">
               <div className="ml-3 titleStyle">
                 <span id="titleText">{this.state.title}</span>

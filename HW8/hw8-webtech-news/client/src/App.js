@@ -11,11 +11,26 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { news_source: true };
+    var news_source = true;
+    if (localStorage.toggle) {
+      if (localStorage.toggle === "true") {
+        news_source = true;
+      } else {
+        news_source = false;
+      }
+    } else {
+      localStorage.setItem("toggle", "true");
+    }
+    this.state = { news_source: news_source };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange() {
+    if (this.state.news_source) {
+      localStorage.setItem("toggle", "false");
+    } else {
+      localStorage.setItem("toggle", "true");
+    }
     this.setState({ news_source: !this.state.news_source });
   }
 
