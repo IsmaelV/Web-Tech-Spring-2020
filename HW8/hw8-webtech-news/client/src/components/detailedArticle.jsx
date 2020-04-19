@@ -8,6 +8,7 @@ import {
   EmailIcon
 } from "react-share";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { Redirect } from "react-router-dom";
 import commentBox from "commentbox.io";
 import ReactTooltip from "react-tooltip";
@@ -31,6 +32,7 @@ class DetailedArticle extends Component {
     super(props);
     this.constructCard = this.constructCard.bind(this);
     this.handleHideUnhide = this.handleHideUnhide.bind(this);
+    this.state = { expanded: true };
     console.log(localStorage);
   }
 
@@ -90,6 +92,7 @@ class DetailedArticle extends Component {
 
     detailedDescription.classList.toggle("hidden");
     detailedFullText.classList.toggle("hidden");
+    this.setState({ expanded: !this.state.expanded });
   }
 
   constructCard(callback) {
@@ -213,7 +216,6 @@ class DetailedArticle extends Component {
     }
 
     return (
-      // <Container fluid>
       <React.Fragment>
         <Container
           fluid
@@ -278,6 +280,20 @@ class DetailedArticle extends Component {
             onClick={this.handleHideUnhide}
           >
             {this.state.full_text}
+          </Row>
+          <Row>
+            <Col xs="10" sm="11" md="11" lg="11" xl="11"></Col>
+            <Col
+              xs="2"
+              sm="1"
+              md="1"
+              lg="1"
+              xl="1"
+              id="expandButton"
+              onClick={this.handleHideUnhide}
+            >
+              {this.state.expanded ? <MdExpandMore /> : <MdExpandLess />}
+            </Col>
           </Row>
         </Container>
         <div className="commentbox" />
