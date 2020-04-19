@@ -126,6 +126,7 @@ class SectionArticle extends Component {
     if (e.target.getAttribute("id") === "shareButton") {
       return true;
     } else if (
+      e.target.getAttribute("id") === "wholeRow" ||
       e.target.getAttribute("id") === "articleContainer" ||
       e.target.getAttribute("id") === "articleImg" ||
       e.target.getAttribute("id") === "rightSide" ||
@@ -179,7 +180,7 @@ class SectionArticle extends Component {
         id="articleContainer"
         onClick={event => this.handleContainerClick(event)}
       >
-        <Row className="rowContainer">
+        <Row className="rowContainer" id="wholeRow">
           <Col className="imageContainer">
             <img
               className="imgStyle"

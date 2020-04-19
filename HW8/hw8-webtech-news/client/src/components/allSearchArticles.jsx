@@ -31,8 +31,13 @@ class AllSearchArticles extends Component {
   }
 
   render() {
+    var resultsStyle = {
+      fontSize: "4vh"
+    };
+
     return (
-      <Container>
+      <Container fluid>
+        <div style={resultsStyle}>Results</div>
         <Row>
           {this.state.first_row.map(fArti => (
             <SearchArticle article={fArti} />
