@@ -8,7 +8,7 @@ import { Col } from "react-bootstrap";
 import "../styles/sectionArticle.css";
 import "../styles/searchArticle.css";
 
-class SearchArticle extends Component {
+class BookmarkedArticle extends Component {
   state = {
     showModal: false,
     goToDetailedView: false
@@ -134,4 +134,4 @@ class SearchArticle extends Component {
   }
 }
 
-export default SearchArticle;
+export default BookmarkedArticle;
