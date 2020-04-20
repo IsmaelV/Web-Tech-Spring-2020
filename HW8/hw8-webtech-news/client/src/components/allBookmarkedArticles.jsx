@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BookmarkedArticle from "./bookmarkedArticle";
+import { ToastContainer, toast } from "react-toastify";
 import { Container, Row } from "react-bootstrap";
 import "../styles/standard.css";
 
@@ -19,7 +20,7 @@ class AllBookmarkedArticles extends Component {
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
 
-  handleRemoveBookmark(id_to_remove) {
+  handleRemoveBookmark(id_to_remove, title_to_remove) {
     var allBookmarks = JSON.parse(localStorage.getItem("bookmarked"));
     for (var i = 0; i < allBookmarks.selected.length; i++) {
       if (allBookmarks.selected[i].id === id_to_remove) {
@@ -30,7 +31,7 @@ class AllBookmarkedArticles extends Component {
     localStorage.setItem("bookmarked", JSON.stringify(allBookmarks));
     this.setState({ all_articles: allBookmarks });
 
-    // TODO: Add toast to announce that it was removed
+    toast("Removing " + title_to_remove + " ... ");
   }
 
   render() {
@@ -39,6 +40,7 @@ class AllBookmarkedArticles extends Component {
     };
     return (
       <Container fluid>
+        <ToastContainer />
         <div style={favoritesStyle}>Favorites</div>
         <Row>
           {JSON.parse(localStorage.getItem("bookmarked")).selected.length >

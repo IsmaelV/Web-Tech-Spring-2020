@@ -30,7 +30,7 @@ class BookmarkedArticle extends Component {
   }
 
   handleRemoveThisBookmark = () => {
-    this.props.onRemoveBookmark(this.props.id);
+    this.props.onRemoveBookmark(this.props.id, this.props.title);
   };
 
   handleContainerClick(e) {
