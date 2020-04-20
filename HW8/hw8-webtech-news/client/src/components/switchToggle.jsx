@@ -14,7 +14,7 @@ class SwitchToggle extends Component {
           checkedIcon={false}
           onColor={"#037ffc"}
         />
-        <span className="text-white">The Guardian</span>
+        <span className="text-white">Guardian</span>
       </React.Fragment>
     );
   }

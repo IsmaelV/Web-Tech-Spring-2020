@@ -12,6 +12,8 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { Redirect } from "react-router-dom";
 import commentBox from "commentbox.io";
 import ReactTooltip from "react-tooltip";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Container, Row, Col } from "react-bootstrap";
 import "../styles/detailedArticle.css";
 import "../styles/standard.css";
@@ -119,6 +121,7 @@ class DetailedArticle extends Component {
         info: this.state,
         news_source: this.props.news_source
       });
+      toast("Saving " + this.state.title);
     } else {
       this.setState({ bookmarked: false });
       for (var i = 0; i < allBookmarks.selected.length; i++) {
@@ -127,6 +130,7 @@ class DetailedArticle extends Component {
           break;
         }
       }
+      toast("Removing " + this.state.title);
     }
     localStorage.setItem("bookmarked", JSON.stringify(allBookmarks));
   }
@@ -257,6 +261,7 @@ class DetailedArticle extends Component {
     }
     return (
       <React.Fragment>
+        <ToastContainer />
         <Container
           fluid
           className="detailedContainer"
@@ -295,8 +300,6 @@ class DetailedArticle extends Component {
               >
                 <EmailIcon round={true} size={"3.25vh"} />
               </EmailShareButton>
-
-              {/* <ReactTooltip effect="solid" /> */}
             </Col>
             <Col id="bookmarkContainer" xs="1" sm="1" md="1" lg="1" xl="1">
               {!this.checkIfBookmarked() ? (
@@ -323,18 +326,10 @@ class DetailedArticle extends Component {
             <img className="detailedImg" src={this.state.image} alt="Article" />
           </Row>
 
-          <Row
-            id="detailedDescription"
-            className="m-3 detailedDescrip"
-            onClick={this.handleHideUnhide}
-          >
+          <Row id="detailedDescription" className="m-3 detailedDescrip">
             {this.state.description}
           </Row>
-          <Row
-            id="detailedFullText"
-            className="m-3 detailedFull hidden"
-            onClick={this.handleHideUnhide}
-          >
+          <Row id="detailedFullText" className="m-3 detailedFull hidden">
             {this.state.full_text}
           </Row>
           <Row>
