@@ -34,6 +34,10 @@ class SectionArticle extends Component {
     let date = "";
     let imgSrc = "";
     let articleId = "";
+
+    // ------------------------------
+    // ---------- NY Times ----------
+    // ------------------------------
     if (this.props.news_source === "nytimes") {
       section = fullArticle.section;
       title = fullArticle.title;
@@ -60,7 +64,12 @@ class SectionArticle extends Component {
         imgSrc =
           "https://upload.wikimedia.org/wikipedia/commons/0/0e/Nytimes_hq.jpg";
       }
-    } else {
+    }
+
+    // ------------------------------
+    // ---------- Guardian ----------
+    // ------------------------------
+    else {
       section = fullArticle.sectionId;
       title = fullArticle.webTitle;
 
@@ -79,16 +88,15 @@ class SectionArticle extends Component {
       // Look for image
       let imgFound = false;
       imgSrc = "";
-      for (
-        var index = 0;
-        index < fullArticle.blocks.main.elements[0].assets.length;
-        index++
-      ) {
-        if (
-          fullArticle.blocks.main.elements[0].assets[index].typeData.width >=
-          2000
-        ) {
-          imgSrc = fullArticle.blocks.main.elements[0].assets[index].file;
+      var imgPath = "";
+      if (fullArticle.blocks.main) {
+        imgPath = fullArticle.blocks.main;
+      } else {
+        imgPath = fullArticle.blocks.body[0];
+      }
+      for (var index = 0; index < imgPath.elements[0].assets.length; index++) {
+        if (imgPath.elements[0].assets[index].typeData.width >= 2000) {
+          imgSrc = imgPath.elements[0].assets[index].file;
           imgFound = true;
           break;
         }
