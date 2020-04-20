@@ -136,8 +136,6 @@ class SectionArticle extends Component {
       e.target.getAttribute("id") === "contentDate" ||
       e.target.getAttribute("id") === "contentBadge"
     ) {
-      console.log(this.state.redirect_url);
-      console.log(this.state.article_id);
       this.setState({ goToDetailedView: true });
     }
   }

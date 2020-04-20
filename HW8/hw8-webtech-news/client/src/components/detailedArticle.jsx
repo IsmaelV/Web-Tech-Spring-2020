@@ -26,14 +26,19 @@ class DetailedArticle extends Component {
     image: "",
     redirect_url: "",
     article_id: "",
-    showModal: false
+    showModal: false,
+    expanded: true
   };
   constructor(props) {
     super(props);
     this.constructCard = this.constructCard.bind(this);
     this.handleHideUnhide = this.handleHideUnhide.bind(this);
-    this.state = { expanded: true };
-    console.log(localStorage);
+    this.handleBookmark = this.handleBookmark.bind(this);
+
+    // If no bookmarks created at all yet, create empty list
+    if (!localStorage.bookmarked) {
+      localStorage.setItem("bookmarked", JSON.stringify({ selected: [] }));
+    }
   }
 
   constructDate(dateString) {
@@ -95,11 +100,43 @@ class DetailedArticle extends Component {
     this.setState({ expanded: !this.state.expanded });
   }
 
+  checkIfBookmarked() {
+    var allBookmarked = JSON.parse(localStorage.getItem("bookmarked")).selected;
+    for (var b = 0; b < allBookmarked.length; b++) {
+      if (allBookmarked[b].id === this.state.article_id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  handleBookmark() {
+    var allBookmarks = JSON.parse(localStorage.getItem("bookmarked"));
+    if (!this.checkIfBookmarked()) {
+      this.setState({ bookmarked: true });
+      allBookmarks.selected.push({
+        id: this.state.article_id,
+        info: this.state
+      });
+    } else {
+      this.setState({ bookmarked: false });
+      for (var i = 0; i < allBookmarks.selected.length; i++) {
+        if (allBookmarks.selected[i].id === this.state.article_id) {
+          allBookmarks.selected.splice(i, 1);
+          break;
+        }
+      }
+    }
+    localStorage.setItem("bookmarked", JSON.stringify(allBookmarks));
+    console.log(allBookmarks.selected);
+  }
+
   constructCard(callback) {
     const fullArticle = this.props.article;
     let title = "";
     let description = "";
     let articleUrl = "";
+    let article_id = "";
     let date = "";
     let imgSrc = "";
     let full_text = "";
@@ -109,6 +146,7 @@ class DetailedArticle extends Component {
     // ------------------------------
     if (this.props.news_source === "nytimes") {
       title = fullArticle.response.docs[0].headline.main;
+      article_id = fullArticle.response.docs[0].web_url;
       description = fullArticle.response.docs[0].abstract;
       full_text = fullArticle.response.docs[0].abstract;
       articleUrl = fullArticle.response.docs[0].web_url;
@@ -146,6 +184,7 @@ class DetailedArticle extends Component {
     // ------------------------------
     else {
       title = fullArticle.response.content.webTitle;
+      article_id = fullArticle.response.content.id;
 
       // Get small portion of body text to show in article view
       full_text = fullArticle.response.content.blocks.body[0].bodyTextSummary;
@@ -189,12 +228,14 @@ class DetailedArticle extends Component {
       date: date,
       articleUrl: articleUrl,
       image: imgSrc,
-      full_text: full_text
+      full_text: full_text,
+      article_id: article_id
     });
   }
 
   updateState(data) {
     this.setState(data);
+    this.setState({ bookmarked: this.checkIfBookmarked() });
   }
 
   componentDidMount() {
@@ -210,7 +251,6 @@ class DetailedArticle extends Component {
     if (this.state.goToDetailedView) {
       return <Redirect to={this.state.redirect_url} />;
     }
-
     return (
       <React.Fragment>
         <Container
@@ -252,10 +292,26 @@ class DetailedArticle extends Component {
                 <EmailIcon round={true} size={"3.25vh"} />
               </EmailShareButton>
 
-              <ReactTooltip effect="solid" />
+              {/* <ReactTooltip effect="solid" /> */}
             </Col>
             <Col id="bookmarkContainer" xs="1" sm="1" md="1" lg="1" xl="1">
-              <FaRegBookmark data-tip="Bookmark" />
+              {!this.checkIfBookmarked() ? (
+                <React.Fragment>
+                  <FaRegBookmark
+                    data-tip="Bookmark"
+                    onClick={this.handleBookmark}
+                  />
+                  <ReactTooltip effect="solid" />
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <FaBookmark
+                    data-tip="Bookmark"
+                    onClick={this.handleBookmark}
+                  />{" "}
+                  <ReactTooltip effect="solid" />{" "}
+                </React.Fragment>
+              )}
             </Col>
           </Row>
 
