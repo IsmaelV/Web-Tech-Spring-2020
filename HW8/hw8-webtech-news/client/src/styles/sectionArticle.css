@@ -29,7 +29,8 @@
 }
 .sectionStyle {
   float: right;
-  font-size: 1em;
+  font-size: 1.25vh;
+  margin-right: 1vh;
 }
 .titleStyle {
   font-size: 1.2em;

@@ -116,7 +116,8 @@ class DetailedArticle extends Component {
       this.setState({ bookmarked: true });
       allBookmarks.selected.push({
         id: this.state.article_id,
-        info: this.state
+        info: this.state,
+        news_source: this.props.news_source
       });
     } else {
       this.setState({ bookmarked: false });
@@ -128,7 +129,6 @@ class DetailedArticle extends Component {
       }
     }
     localStorage.setItem("bookmarked", JSON.stringify(allBookmarks));
-    console.log(allBookmarks.selected);
   }
 
   constructCard(callback) {
@@ -138,6 +138,7 @@ class DetailedArticle extends Component {
     let articleUrl = "";
     let article_id = "";
     let date = "";
+    let section = "";
     let imgSrc = "";
     let full_text = "";
 
@@ -147,6 +148,7 @@ class DetailedArticle extends Component {
     if (this.props.news_source === "nytimes") {
       title = fullArticle.response.docs[0].headline.main;
       article_id = fullArticle.response.docs[0].web_url;
+      section = fullArticle.response.docs[0].section_name.toUpperCase();
       description = fullArticle.response.docs[0].abstract;
       full_text = fullArticle.response.docs[0].abstract;
       articleUrl = fullArticle.response.docs[0].web_url;
@@ -185,6 +187,7 @@ class DetailedArticle extends Component {
     else {
       title = fullArticle.response.content.webTitle;
       article_id = fullArticle.response.content.id;
+      section = fullArticle.response.content.sectionId.toUpperCase();
 
       // Get small portion of body text to show in article view
       full_text = fullArticle.response.content.blocks.body[0].bodyTextSummary;
@@ -229,7 +232,8 @@ class DetailedArticle extends Component {
       articleUrl: articleUrl,
       image: imgSrc,
       full_text: full_text,
-      article_id: article_id
+      article_id: article_id,
+      section: section
     });
   }
 

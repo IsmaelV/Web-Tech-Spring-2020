@@ -4,6 +4,7 @@ import Section from "./components/section";
 import { Switch, Route, Redirect } from "react-router-dom";
 import DetailedView from "./components/detailedView";
 import Search from "./components/search";
+import AllBookmarkedArticles from "./components/allBookmarkedArticles";
 import "./App.css";
 
 class App extends React.Component {
@@ -108,6 +109,7 @@ class App extends React.Component {
             />
             <Route path="/article_view/" component={DetailedView} />
             <Route path="/search/" component={Search} />
+            <Route path="/favorites" component={AllBookmarkedArticles} />
           </Switch>
         </div>
       </div>

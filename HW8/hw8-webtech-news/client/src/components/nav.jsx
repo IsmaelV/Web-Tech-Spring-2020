@@ -32,7 +32,7 @@ const MyNav = props => {
           Sports
         </Nav.Link>
       </Nav>
-      <Nav.Link as={NavLink} to="/bookmarks">
+      <Nav.Link as={NavLink} to="/favorites">
         <FaRegBookmark
           color="white"
           size="2vh"
