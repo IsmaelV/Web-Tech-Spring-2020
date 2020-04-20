@@ -13,7 +13,22 @@ class AllBookmarkedArticles extends Component {
     }
     var all_articles = JSON.parse(localStorage.getItem("bookmarked")).selected;
     this.state = { all_articles: all_articles };
+
+    this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
+
+  handleRemoveBookmark(id_to_remove) {
+    var allBookmarks = JSON.parse(localStorage.getItem("bookmarked"));
+    for (var i = 0; i < allBookmarks.selected.length; i++) {
+      if (allBookmarks.selected[i].id === id_to_remove) {
+        allBookmarks.selected.splice(i, 1);
+        break;
+      }
+    }
+    localStorage.setItem("bookmarked", JSON.stringify(allBookmarks));
+    this.setState({ all_articles: allBookmarks });
+  }
+
   render() {
     var favoritesStyle = {
       fontSize: "4vh"
@@ -35,10 +50,12 @@ class AllBookmarkedArticles extends Component {
                 redirect_url={
                   "/article_view/" + article.news_source + "/" + article.id
                 }
+                id={article.id}
+                onRemoveBookmark={this.handleRemoveBookmark}
               />
             ))
           ) : (
-            <div>There are no results</div>
+            <h1>You have no saved articles</h1>
           )}
         </Row>
       </Container>

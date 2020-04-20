@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { MdShare } from "react-icons/md";
+import { FaTrash } from "react-icons/fa";
 import ShareModal from "./shareModal";
 import { Redirect } from "react-router-dom";
 import Card from "react-bootstrap/Card";
@@ -18,6 +19,7 @@ class SearchArticle extends Component {
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleContainerClick = this.handleContainerClick.bind(this);
+    this.handleRemoveThisBookmark = this.handleRemoveThisBookmark.bind(this);
   }
 
   handleOpenModal() {
@@ -26,6 +28,10 @@ class SearchArticle extends Component {
   handleCloseModal() {
     this.setState({ showModal: false });
   }
+
+  handleRemoveThisBookmark = () => {
+    this.props.onRemoveBookmark(this.props.id);
+  };
 
   handleContainerClick(e) {
     if (e.target.getAttribute("id") === "shareButton") {
@@ -94,6 +100,10 @@ class SearchArticle extends Component {
             <Card.Title>
               <span id="cardTitle">{this.props.title}</span>
               <MdShare id="shareButton" onClick={this.handleOpenModal} />
+              <FaTrash
+                id="trashButton"
+                onClick={this.handleRemoveThisBookmark}
+              />
             </Card.Title>
             <div style={myCardStyle}>
               <Card.Img id="articleImg" src={this.props.image} />
