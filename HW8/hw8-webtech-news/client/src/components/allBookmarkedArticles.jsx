@@ -74,9 +74,11 @@ class AllBookmarkedArticles extends Component {
               )
             )
           ) : (
-            <h1>You have no saved articles</h1>
+            <div></div>
           )}
         </Row>
+        {JSON.parse(localStorage.getItem("bookmarked")).selected.length <=
+          0 && <h2 className="centering">You have no saved articles</h2>}
       </Container>
     );
   }
