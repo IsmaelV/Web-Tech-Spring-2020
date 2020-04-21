@@ -64,33 +64,40 @@ class MyNav extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse>
           <Nav className="mr-auto">
-            <Nav.Link as={NavLink} to="/home">
-              <span onClick={this.toggleSliderOn}>Home</span>
+            <Nav.Link as={NavLink} to="/home" onClick={this.toggleSliderOn}>
+              Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/world">
-              <span onClick={this.toggleSliderOn}>World</span>
+            <Nav.Link as={NavLink} to="/world" onClick={this.toggleSliderOn}>
+              World
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/politics">
-              <span onClick={this.toggleSliderOn}>Politics</span>
+            <Nav.Link as={NavLink} to="/politics" onClick={this.toggleSliderOn}>
+              Politics
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/business">
-              <span onClick={this.toggleSliderOn}>Business</span>
+            <Nav.Link as={NavLink} to="/business" onClick={this.toggleSliderOn}>
+              Business
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/technology">
-              <span onClick={this.toggleSliderOn}>Technology</span>
+            <Nav.Link
+              as={NavLink}
+              to="/technology"
+              onClick={this.toggleSliderOn}
+            >
+              Technology
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/sports">
-              <span onClick={this.toggleSliderOn}>Sports</span>
+            <Nav.Link as={NavLink} to="/sports" onClick={this.toggleSliderOn}>
+              Sports
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link as={NavLink} to="/favorites">
+            <Nav.Link
+              as={NavLink}
+              to="/favorites"
+              onClick={this.toggleSliderOff}
+              data-tip="Bookmark"
+            >
               <FaRegBookmark
                 color="white"
                 size="2vh"
-                onClick={this.toggleSliderOff}
                 style={{ marginRight: "1vh" }}
-                data-tip="Bookmark"
               />
             </Nav.Link>
             {!this.state.atFavoritePage && (

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BookmarkedArticle from "./bookmarkedArticle";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, Zoom } from "react-toastify";
 import { Container, Row } from "react-bootstrap";
 import "../styles/standard.css";
 
@@ -31,7 +31,7 @@ class AllBookmarkedArticles extends Component {
     localStorage.setItem("bookmarked", JSON.stringify(allBookmarks));
     this.setState({ all_articles: allBookmarks });
 
-    toast("Removing " + title_to_remove + " ... ");
+    toast("Removing " + title_to_remove);
   }
 
   render() {
@@ -40,7 +40,18 @@ class AllBookmarkedArticles extends Component {
     };
     return (
       <Container fluid>
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover={false}
+          transition={Zoom}
+        />
         <div style={favoritesStyle}>Favorites</div>
         <Row>
           {JSON.parse(localStorage.getItem("bookmarked")).selected.length >

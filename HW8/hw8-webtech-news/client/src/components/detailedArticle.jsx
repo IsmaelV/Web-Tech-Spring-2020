@@ -12,7 +12,7 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { Redirect } from "react-router-dom";
 import commentBox from "commentbox.io";
 import ReactTooltip from "react-tooltip";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Container, Row, Col } from "react-bootstrap";
 import "../styles/detailedArticle.css";
@@ -261,7 +261,18 @@ class DetailedArticle extends Component {
     }
     return (
       <React.Fragment>
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover={false}
+          transition={Zoom}
+        />
         <Container
           fluid
           className="detailedContainer"
