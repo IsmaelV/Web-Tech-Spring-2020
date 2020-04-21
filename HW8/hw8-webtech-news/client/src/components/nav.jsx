@@ -12,11 +12,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/nav.css";
 
 class MyNav extends React.Component {
-  state = { suggestions: [] };
+  state = { suggestions: [], atFavoritePage: false };
 
   constructor(props) {
     super(props);
     this.getAutoSuggestions = this.getAutoSuggestions.bind(this);
+    this.toggleSliderOn = this.toggleSliderOn.bind(this);
+    this.toggleSliderOff = this.toggleSliderOff.bind(this);
   }
 
   getAutoSuggestions(data) {
@@ -31,6 +33,13 @@ class MyNav extends React.Component {
       searchVal: "",
       search: false
     });
+  }
+
+  toggleSliderOn() {
+    this.setState({ atFavoritePage: false });
+  }
+  toggleSliderOff() {
+    this.setState({ atFavoritePage: true });
   }
 
   render() {
@@ -56,22 +65,22 @@ class MyNav extends React.Component {
         <Navbar.Collapse>
           <Nav className="mr-auto">
             <Nav.Link as={NavLink} to="/home">
-              Home
+              <span onClick={this.toggleSliderOn}>Home</span>
             </Nav.Link>
             <Nav.Link as={NavLink} to="/world">
-              World
+              <span onClick={this.toggleSliderOn}>World</span>
             </Nav.Link>
             <Nav.Link as={NavLink} to="/politics">
-              Politics
+              <span onClick={this.toggleSliderOn}>Politics</span>
             </Nav.Link>
             <Nav.Link as={NavLink} to="/business">
-              Business
+              <span onClick={this.toggleSliderOn}>Business</span>
             </Nav.Link>
             <Nav.Link as={NavLink} to="/technology">
-              Technology
+              <span onClick={this.toggleSliderOn}>Technology</span>
             </Nav.Link>
             <Nav.Link as={NavLink} to="/sports">
-              Sports
+              <span onClick={this.toggleSliderOn}>Sports</span>
             </Nav.Link>
           </Nav>
           <Nav>
@@ -79,14 +88,17 @@ class MyNav extends React.Component {
               <FaRegBookmark
                 color="white"
                 size="2vh"
+                onClick={this.toggleSliderOff}
                 style={{ marginRight: "1vh" }}
                 data-tip="Bookmark"
               />
             </Nav.Link>
-            <SwitchToggle
-              toggle_status={this.props.toggle_status}
-              handleChange={this.props.handleChange}
-            />
+            {!this.state.atFavoritePage && (
+              <SwitchToggle
+                toggle_status={this.props.toggle_status}
+                handleChange={this.props.handleChange}
+              />
+            )}
           </Nav>
           {this.state.search && (
             <Redirect to={"/search/" + this.state.searchVal} />
