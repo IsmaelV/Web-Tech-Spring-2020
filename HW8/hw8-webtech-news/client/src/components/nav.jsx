@@ -5,6 +5,7 @@ import Select from "react-select";
 import SwitchToggle from "./switchToggle";
 import { NavLink } from "react-router-dom";
 import { FaRegBookmark } from "react-icons/fa";
+import ReactTooltip from "react-tooltip";
 import bingAutosuggest from "../utils/autoSuggest";
 import _ from "lodash";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -79,6 +80,7 @@ class MyNav extends React.Component {
                 color="white"
                 size="2vh"
                 style={{ marginRight: "1vh" }}
+                data-tip="Bookmark"
               />
             </Nav.Link>
             <SwitchToggle
@@ -90,6 +92,7 @@ class MyNav extends React.Component {
             <Redirect to={"/search/" + this.state.searchVal} />
           )}
         </Navbar.Collapse>
+        <ReactTooltip effect="solid" />
       </Navbar>
     );
   }
