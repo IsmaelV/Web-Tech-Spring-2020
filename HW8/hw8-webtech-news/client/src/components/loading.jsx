@@ -3,7 +3,7 @@ import { BounceLoader } from "react-spinners";
 
 const Loading = () => {
   const centerStyle = {
-    position: "fixed",
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)"
@@ -18,9 +18,7 @@ const Loading = () => {
   return (
     <div style={centerStyle}>
       <BounceLoader color="#2f4bc6" />
-      <br />
-      <br />
-      <div style={textStyle}>Loading ...</div>
+      <div style={textStyle}>Loading</div>
     </div>
   );
 };
