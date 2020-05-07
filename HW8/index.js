@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 
-// app.use(express.json());
-
 const cors = require("cors");
 app.use(cors());
+
+const googleTrends = require("google-trends-api");
 
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -28,7 +28,7 @@ app.get("/nytimes/:category", (req, res) => {
   var xmlreq = new XMLHttpRequest();
   xmlreq.open("GET", nytimes_link, true);
 
-  xmlreq.onreadystatechange = function() {
+  xmlreq.onreadystatechange = function () {
     if (xmlreq.readyState === 4) {
       if (xmlreq.status === 200) {
         res.send(JSON.parse(xmlreq.responseText));
@@ -52,7 +52,7 @@ app.get("/nytimes/article_view/:article_id", (req, res) => {
   var xmlreq = new XMLHttpRequest();
   xmlreq.open("GET", nytimes_link, true);
 
-  xmlreq.onreadystatechange = function() {
+  xmlreq.onreadystatechange = function () {
     if (xmlreq.readyState === 4) {
       if (xmlreq.status === 200) {
         res.send(JSON.parse(xmlreq.responseText));
@@ -75,7 +75,7 @@ app.get("/nytimes/search/:query", (req, res) => {
   var xmlreq = new XMLHttpRequest();
   xmlreq.open("GET", nytimes_link, true);
 
-  xmlreq.onreadystatechange = function() {
+  xmlreq.onreadystatechange = function () {
     if (xmlreq.readyState === 4) {
       if (xmlreq.status === 200) {
         res.send(JSON.parse(xmlreq.responseText));
@@ -117,7 +117,7 @@ app.get("/guardian/:category", (req, res) => {
   var xmlreq = new XMLHttpRequest();
   xmlreq.open("GET", guardian_link, true);
 
-  xmlreq.onreadystatechange = function() {
+  xmlreq.onreadystatechange = function () {
     if (xmlreq.readyState === 4) {
       if (xmlreq.status === 200) {
         res.send(JSON.parse(xmlreq.responseText));
@@ -142,7 +142,7 @@ app.get("/guardian/article_view/:article_id", (req, res) => {
   var xmlreq = new XMLHttpRequest();
   xmlreq.open("GET", guardian_link, true);
 
-  xmlreq.onreadystatechange = function() {
+  xmlreq.onreadystatechange = function () {
     if (xmlreq.readyState === 4) {
       if (xmlreq.status === 200) {
         res.send(JSON.parse(xmlreq.responseText));
@@ -166,7 +166,7 @@ app.get("/guardian/search/:query", (req, res) => {
   var xmlreq = new XMLHttpRequest();
   xmlreq.open("GET", guardian_link, true);
 
-  xmlreq.onreadystatechange = function() {
+  xmlreq.onreadystatechange = function () {
     if (xmlreq.readyState === 4) {
       if (xmlreq.status === 200) {
         res.send(JSON.parse(xmlreq.responseText));
@@ -175,6 +175,24 @@ app.get("/guardian/search/:query", (req, res) => {
   };
 
   xmlreq.send();
+});
+
+// ------------------------------
+// -------- Google Call ---------
+// ------------------------------
+app.get("/google/interest_over_time/:query", (req, res) => {
+  var q = req.params.query;
+  console.log("Query for google: ", q);
+  var startDate = new Date("2019-06-01");
+  googleTrends
+    .interestOverTime({ keyword: q, startTime: startDate })
+    .then(function (results) {
+      res.send(results);
+    })
+    .catch(function (err) {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 // ------------------------------
